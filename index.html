@@ -22,17 +22,16 @@
             color: #fff8f0;
         }
 
-        /* ============ FULL SCREEN FLASH ============ */
-        #full-flash {
+        /* ============ REAL FLASH OVERLAY ============ */
+        #flash-overlay {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: white;
-            z-index: 9999;
-            opacity: 1;
+            z-index: 99999;
+            pointer-events: none;
         }
 
         /* ============ DELETE CONFIRM MODAL ============ */
@@ -247,37 +246,10 @@
             z-index: 2;
         }
 
-        .overlay-corner-tl {
-            position: absolute;
-            top: 8px;
-            left: 12px;
-            font-size: 32px;
-            z-index: 2;
-        }
-
-        .overlay-corner-tr {
-            position: absolute;
-            top: 8px;
-            right: 12px;
-            font-size: 32px;
-            z-index: 2;
-        }
-
-        .overlay-corner-bl {
-            position: absolute;
-            bottom: 8px;
-            left: 12px;
-            font-size: 32px;
-            z-index: 2;
-        }
-
-        .overlay-corner-br {
-            position: absolute;
-            bottom: 8px;
-            right: 12px;
-            font-size: 32px;
-            z-index: 2;
-        }
+        .overlay-corner-tl { position: absolute; top: 8px; left: 12px; font-size: 32px; z-index: 2; }
+        .overlay-corner-tr { position: absolute; top: 8px; right: 12px; font-size: 32px; z-index: 2; }
+        .overlay-corner-bl { position: absolute; bottom: 8px; left: 12px; font-size: 32px; z-index: 2; }
+        .overlay-corner-br { position: absolute; bottom: 8px; right: 12px; font-size: 32px; z-index: 2; }
 
         #countdown {
             display: none;
@@ -291,17 +263,6 @@
             text-shadow: 4px 4px 20px rgba(0,0,0,0.8);
             z-index: 10;
             animation: countPulse 0.5s ease;
-        }
-
-        .camera-flash {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            z-index: 15;
-            animation: flashAnim 0.4s ease forwards;
         }
 
         .capture-btn {
@@ -326,9 +287,7 @@
             transform: translate(-50%, -50%);
         }
 
-        .capture-btn:active {
-            transform: scale(0.9);
-        }
+        .capture-btn:active { transform: scale(0.9); }
 
         .switch-cam-btn {
             margin-top: 10px;
@@ -388,25 +347,25 @@
             border-radius: 16px;
         }
 
-        .filter-section {
+        .filter-section, .overlay-section {
             margin-top: 15px;
             text-align: center;
         }
 
-        .filter-section h3 {
+        .filter-section h3, .overlay-section h3 {
             color: #d7ccc8;
             margin-bottom: 10px;
             font-weight: 300;
         }
 
-        .filter-buttons {
+        .filter-buttons, .overlay-buttons {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
             justify-content: center;
         }
 
-        .filter-btn {
+        .filter-btn, .overlay-btn {
             background: rgba(141, 110, 99, 0.5);
             border: 2px solid #8d6e63;
             color: #ffe0b2;
@@ -418,42 +377,7 @@
             transition: all 0.2s ease;
         }
 
-        .filter-btn.active {
-            background: #8d6e63;
-            border-color: #ffe0b2;
-        }
-
-        .overlay-section {
-            margin-top: 15px;
-            text-align: center;
-        }
-
-        .overlay-section h3 {
-            color: #d7ccc8;
-            margin-bottom: 10px;
-            font-weight: 300;
-        }
-
-        .overlay-buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .overlay-btn {
-            background: rgba(141, 110, 99, 0.5);
-            border: 2px solid #8d6e63;
-            color: #ffe0b2;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .overlay-btn.active {
+        .filter-btn.active, .overlay-btn.active {
             background: #8d6e63;
             border-color: #ffe0b2;
         }
@@ -480,13 +404,8 @@
             transition: all 0.3s ease;
         }
 
-        .action-btn:active {
-            transform: scale(0.95);
-        }
-
-        .action-btn.retake {
-            background: linear-gradient(135deg, #5d4037, #6d4c41);
-        }
+        .action-btn:active { transform: scale(0.95); }
+        .action-btn.retake { background: linear-gradient(135deg, #5d4037, #6d4c41); }
 
         /* ============ QR SCREEN ============ */
         #qr-screen {
@@ -495,7 +414,7 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            padding: 40px;
+            padding: 30px;
             text-align: center;
         }
 
@@ -509,41 +428,38 @@
         .qr-subtitle {
             color: #d7ccc8;
             font-size: 18px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             font-weight: 300;
+        }
+
+        .qr-photo-preview {
+            width: 200px;
+            border-radius: 12px;
+            border: 3px solid #8d6e63;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
 
         #qr-image {
             background: #fff;
-            padding: 20px;
+            padding: 15px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
             border: 4px solid #8d6e63;
         }
 
         .qr-instruction {
-            margin-top: 20px;
-            color: #bcaaa4;
-            font-size: 16px;
-            max-width: 400px;
-        }
-
-        .qr-url-display {
             margin-top: 15px;
-            background: rgba(141, 110, 99, 0.3);
-            border: 1px solid #8d6e63;
-            border-radius: 12px;
-            padding: 12px 20px;
-            color: #ffe0b2;
-            font-size: 13px;
-            word-break: break-all;
+            color: #bcaaa4;
+            font-size: 14px;
             max-width: 400px;
+            line-height: 1.5;
         }
 
         .qr-buttons {
             display: flex;
             gap: 15px;
-            margin-top: 25px;
+            margin-top: 20px;
             flex-wrap: wrap;
             justify-content: center;
         }
@@ -585,18 +501,12 @@
             font-family: 'Poppins', sans-serif;
             font-size: 14px;
             cursor: pointer;
-            transition: all 0.2s ease;
         }
 
         .gallery-action-btn.danger {
             border-color: #c62828;
             color: #ef9a9a;
             background: rgba(198, 40, 40, 0.2);
-        }
-
-        .gallery-action-btn.danger:active {
-            background: #c62828;
-            color: #fff;
         }
 
         .gallery-grid {
@@ -608,9 +518,8 @@
         }
 
         .gallery-item {
-            position: relative;
             border-radius: 15px;
-            overflow: visible;
+            overflow: hidden;
             box-shadow: 0 5px 20px rgba(0,0,0,0.3);
             border: 3px solid #8d6e63;
             background: #3e2723;
@@ -619,7 +528,6 @@
         .gallery-item img {
             width: 100%;
             display: block;
-            border-radius: 12px;
         }
 
         .gallery-item-buttons {
@@ -633,45 +541,37 @@
             background: #c62828;
             border: none;
             color: #fff;
-            padding: 8px 16px;
+            padding: 10px 16px;
             border-radius: 20px;
             font-family: 'Poppins', sans-serif;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s ease;
             flex: 1;
         }
 
-        .gallery-delete-btn:active {
-            transform: scale(0.95);
-            background: #b71c1c;
-        }
+        .gallery-delete-btn:active { transform: scale(0.95); background: #b71c1c; }
 
         .gallery-download-btn {
             background: #8d6e63;
             border: none;
             color: #fff;
-            padding: 8px 16px;
+            padding: 10px 16px;
             border-radius: 20px;
             font-family: 'Poppins', sans-serif;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s ease;
             flex: 1;
         }
 
-        .gallery-download-btn:active {
-            transform: scale(0.95);
-            background: #6d4c41;
-        }
+        .gallery-download-btn:active { transform: scale(0.95); }
 
         .gallery-time {
             text-align: center;
             color: #bcaaa4;
             font-size: 11px;
-            padding-bottom: 8px;
+            padding: 4px 0 8px 0;
         }
 
         .gallery-empty {
@@ -681,10 +581,7 @@
             text-align: center;
         }
 
-        /* ============ HIDDEN CANVAS ============ */
-        #hidden-canvas {
-            display: none;
-        }
+        #hidden-canvas { display: none; }
 
         /* ============ ANIMATIONS ============ */
         @keyframes fadeIn {
@@ -703,40 +600,21 @@
             100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
 
-        @keyframes flashAnim {
-            0% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        @keyframes fullFlashAnim {
-            0% { opacity: 0; }
-            15% { opacity: 1; }
-            60% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #3e2723;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #8d6e63;
-            border-radius: 4px;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #3e2723; }
+        ::-webkit-scrollbar-thumb { background: #8d6e63; border-radius: 4px; }
     </style>
 </head>
 <body>
 
-    <!-- FULL SCREEN FLASH -->
-    <div id="full-flash"></div>
+    <!-- FLASH OVERLAY -->
+    <div id="flash-overlay"></div>
 
-    <!-- DELETE CONFIRM MODAL -->
+    <!-- DELETE MODAL -->
     <div id="delete-modal">
         <div class="modal-box">
             <h2>Delete Photo? 🗑️</h2>
-            <p id="delete-modal-text">Are you sure you want to delete this photo?</p>
+            <p id="delete-modal-text">Are you sure?</p>
             <div class="modal-buttons">
                 <button class="modal-btn cancel" onclick="closeDeleteModal()">Cancel</button>
                 <button class="modal-btn confirm-delete" id="confirm-delete-btn">🗑️ Delete</button>
@@ -744,7 +622,7 @@
         </div>
     </div>
 
-    <!-- WELCOME SCREEN -->
+    <!-- WELCOME -->
     <div id="welcome-screen">
         <div class="welcome-bears">🧸</div>
         <div class="welcome-title">Welcome to</div>
@@ -755,7 +633,7 @@
         <button class="gallery-link" onclick="showGallery()">View Gallery 🖼️</button>
     </div>
 
-    <!-- CAMERA SCREEN -->
+    <!-- CAMERA -->
     <div id="camera-screen">
         <button class="back-btn" onclick="goHome()">← Back</button>
         <div class="camera-header">Say Cheese! 🧸</div>
@@ -775,14 +653,13 @@
         <button class="switch-cam-btn" onclick="switchCamera()">🔄 Switch Camera</button>
     </div>
 
-    <!-- PREVIEW SCREEN -->
+    <!-- PREVIEW -->
     <div id="preview-screen">
         <button class="back-btn" onclick="goToCamera()">← Back</button>
         <div class="preview-header">Looking Good! ✨</div>
         <div class="preview-container">
             <canvas id="preview-canvas"></canvas>
         </div>
-
         <div class="filter-section">
             <h3>Choose a Filter 🎨</h3>
             <div class="filter-buttons">
@@ -794,7 +671,6 @@
                 <button class="filter-btn" onclick="applyFilter('bright')">Bright</button>
             </div>
         </div>
-
         <div class="overlay-section">
             <h3>Choose an Overlay 🖼️</h3>
             <div class="overlay-buttons">
@@ -805,7 +681,6 @@
                 <button class="overlay-btn" onclick="setOverlay('none')">None</button>
             </div>
         </div>
-
         <div class="action-buttons">
             <button class="action-btn retake" onclick="goToCamera()">🔄 Retake</button>
             <button class="action-btn" onclick="saveAndShowQR()">✅ Save & Get QR</button>
@@ -814,11 +689,14 @@
 
     <!-- QR SCREEN -->
     <div id="qr-screen">
-        <div class="qr-header">Scan to Save! 📱</div>
+        <div class="qr-header">Scan to Save Your Photo! 📱</div>
         <div class="qr-subtitle">Point your phone camera at the QR code</div>
+        <img id="qr-photo-preview" class="qr-photo-preview" src="" alt="Your photo">
         <canvas id="qr-image" width="250" height="250"></canvas>
-        <div class="qr-instruction">Scan the QR code to open the gallery on your phone 🧸</div>
-        <div class="qr-url-display" id="qr-url-display"></div>
+        <div class="qr-instruction">
+            📱 Scan the QR code with your phone<br>
+            📸 Your photo will appear — tap and hold to save it!
+        </div>
         <div class="qr-buttons">
             <button class="action-btn retake" onclick="goToCamera()">📸 Take Another</button>
             <button class="action-btn" onclick="showGallery()">🖼️ Gallery</button>
@@ -826,7 +704,7 @@
         </div>
     </div>
 
-    <!-- GALLERY SCREEN -->
+    <!-- GALLERY -->
     <div id="gallery-screen">
         <button class="back-btn" onclick="goHome()">← Back</button>
         <div class="gallery-header">Sol's Photo Gallery 🧸</div>
@@ -837,32 +715,20 @@
         <div class="gallery-grid" id="gallery-grid"></div>
     </div>
 
-    <!-- Hidden canvas -->
     <canvas id="hidden-canvas"></canvas>
 
     <script>
-        // ============ BUILT-IN QR CODE GENERATOR ============
-        // Minimal QR Code generator (no external library needed)
-        var QRCode = (function() {
-            // QR Code Generator
-            // Based on qrcode-generator by Kazuhiko Arase
-            // Licensed under MIT
-
-            function QR8bitByte(data) {
-                this.mode = 4; // MODE_8BIT_BYTE
-                this.data = data;
-            }
-
+        // ============ QR CODE GENERATOR (BUILT IN) ============
+        var QRCodeGen = (function () {
+            function QR8bitByte(data) { this.mode = 4; this.data = data; }
             QR8bitByte.prototype = {
-                getLength: function() { return this.data.length; },
-                write: function(buffer) {
-                    for (var i = 0; i < this.data.length; i++) {
-                        buffer.put(this.data.charCodeAt(i), 8);
-                    }
+                getLength: function () { return this.data.length; },
+                write: function (buffer) {
+                    for (var i = 0; i < this.data.length; i++) buffer.put(this.data.charCodeAt(i), 8);
                 }
             };
 
-            function QRCode(typeNumber, errorCorrectLevel) {
+            function QRCodeModel(typeNumber, errorCorrectLevel) {
                 this.typeNumber = typeNumber;
                 this.errorCorrectLevel = errorCorrectLevel;
                 this.modules = null;
@@ -873,41 +739,34 @@
 
             var PAD0 = 0xEC, PAD1 = 0x11;
 
-            QRCode.prototype = {
-                addData: function(data) {
-                    this.dataList.push(new QR8bitByte(data));
-                    this.dataCache = null;
-                },
-                make: function() {
+            QRCodeModel.prototype = {
+                addData: function (data) { this.dataList.push(new QR8bitByte(data)); this.dataCache = null; },
+                make: function () {
                     if (this.typeNumber < 1) {
-                        var typeNumber = 1;
-                        for (; typeNumber < 40; typeNumber++) {
-                            var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, this.errorCorrectLevel);
-                            var buffer = new QRBitBuffer();
-                            var totalDataCount = 0;
-                            for (var i = 0; i < rsBlocks.length; i++) {
-                                totalDataCount += rsBlocks[i].dataCount;
-                            }
+                        var tn = 1;
+                        for (; tn < 40; tn++) {
+                            var rs = QRRSBlock.getRSBlocks(tn, this.errorCorrectLevel);
+                            var buf = new QRBitBuffer();
+                            var tdc = 0;
+                            for (var i = 0; i < rs.length; i++) tdc += rs[i].dataCount;
                             for (var i = 0; i < this.dataList.length; i++) {
-                                var data = this.dataList[i];
-                                buffer.put(data.mode, 4);
-                                buffer.put(data.getLength(), QRUtil.getLengthInBits(data.mode, typeNumber));
-                                data.write(buffer);
+                                var d = this.dataList[i];
+                                buf.put(d.mode, 4);
+                                buf.put(d.getLength(), QRUtil.getLengthInBits(d.mode, tn));
+                                d.write(buf);
                             }
-                            if (buffer.getLengthInBits() <= totalDataCount * 8) break;
+                            if (buf.getLengthInBits() <= tdc * 8) break;
                         }
-                        this.typeNumber = typeNumber;
+                        this.typeNumber = tn;
                     }
                     this.makeImpl(false, this.getBestMaskPattern());
                 },
-                makeImpl: function(test, maskPattern) {
+                makeImpl: function (test, maskPattern) {
                     this.moduleCount = this.typeNumber * 4 + 17;
                     this.modules = new Array(this.moduleCount);
-                    for (var row = 0; row < this.moduleCount; row++) {
-                        this.modules[row] = new Array(this.moduleCount);
-                        for (var col = 0; col < this.moduleCount; col++) {
-                            this.modules[row][col] = null;
-                        }
+                    for (var r = 0; r < this.moduleCount; r++) {
+                        this.modules[r] = new Array(this.moduleCount);
+                        for (var c = 0; c < this.moduleCount; c++) this.modules[r][c] = null;
                     }
                     this.setupPositionProbePattern(0, 0);
                     this.setupPositionProbePattern(this.moduleCount - 7, 0);
@@ -916,40 +775,32 @@
                     this.setupTimingPattern();
                     this.setupTypeInfo(test, maskPattern);
                     if (this.typeNumber >= 7) this.setupTypeNumber(test);
-                    if (this.dataCache == null) {
-                        this.dataCache = QRCode.createData(this.typeNumber, this.errorCorrectLevel, this.dataList);
-                    }
+                    if (this.dataCache == null)
+                        this.dataCache = QRCodeModel.createData(this.typeNumber, this.errorCorrectLevel, this.dataList);
                     this.mapData(this.dataCache, maskPattern);
                 },
-                setupPositionProbePattern: function(row, col) {
+                setupPositionProbePattern: function (row, col) {
                     for (var r = -1; r <= 7; r++) {
                         if (row + r <= -1 || this.moduleCount <= row + r) continue;
                         for (var c = -1; c <= 7; c++) {
                             if (col + c <= -1 || this.moduleCount <= col + c) continue;
-                            if ((0 <= r && r <= 6 && (c == 0 || c == 6)) ||
+                            this.modules[row + r][col + c] =
+                                (0 <= r && r <= 6 && (c == 0 || c == 6)) ||
                                 (0 <= c && c <= 6 && (r == 0 || r == 6)) ||
-                                (2 <= r && r <= 4 && 2 <= c && c <= 4)) {
-                                this.modules[row + r][col + c] = true;
-                            } else {
-                                this.modules[row + r][col + c] = false;
-                            }
+                                (2 <= r && r <= 4 && 2 <= c && c <= 4);
                         }
                     }
                 },
-                getBestMaskPattern: function() {
-                    var minLostPoint = 0;
-                    var pattern = 0;
+                getBestMaskPattern: function () {
+                    var min = 0, pat = 0;
                     for (var i = 0; i < 8; i++) {
                         this.makeImpl(true, i);
-                        var lostPoint = QRUtil.getLostPoint(this);
-                        if (i == 0 || minLostPoint > lostPoint) {
-                            minLostPoint = lostPoint;
-                            pattern = i;
-                        }
+                        var lp = QRUtil.getLostPoint(this);
+                        if (i == 0 || min > lp) { min = lp; pat = i; }
                     }
-                    return pattern;
+                    return pat;
                 },
-                setupTimingPattern: function() {
+                setupTimingPattern: function () {
                     for (var r = 8; r < this.moduleCount - 8; r++) {
                         if (this.modules[r][6] != null) continue;
                         this.modules[r][6] = (r % 2 == 0);
@@ -959,25 +810,19 @@
                         this.modules[6][c] = (c % 2 == 0);
                     }
                 },
-                setupPositionAdjustPattern: function() {
+                setupPositionAdjustPattern: function () {
                     var pos = QRUtil.getPatternPosition(this.typeNumber);
                     for (var i = 0; i < pos.length; i++) {
                         for (var j = 0; j < pos.length; j++) {
                             var row = pos[i], col = pos[j];
                             if (this.modules[row][col] != null) continue;
-                            for (var r = -2; r <= 2; r++) {
-                                for (var c = -2; c <= 2; c++) {
-                                    if (r == -2 || r == 2 || c == -2 || c == 2 || (r == 0 && c == 0)) {
-                                        this.modules[row + r][col + c] = true;
-                                    } else {
-                                        this.modules[row + r][col + c] = false;
-                                    }
-                                }
-                            }
+                            for (var r = -2; r <= 2; r++)
+                                for (var c = -2; c <= 2; c++)
+                                    this.modules[row + r][col + c] = r == -2 || r == 2 || c == -2 || c == 2 || (r == 0 && c == 0);
                         }
                     }
                 },
-                setupTypeNumber: function(test) {
+                setupTypeNumber: function (test) {
                     var bits = QRUtil.getBCHTypeNumber(this.typeNumber);
                     for (var i = 0; i < 18; i++) {
                         var mod = (!test && ((bits >> i) & 1) == 1);
@@ -988,261 +833,143 @@
                         this.modules[i % 3 + this.moduleCount - 8 - 3][Math.floor(i / 3)] = mod;
                     }
                 },
-                setupTypeInfo: function(test, maskPattern) {
+                setupTypeInfo: function (test, maskPattern) {
                     var data = (this.errorCorrectLevel << 3) | maskPattern;
                     var bits = QRUtil.getBCHTypeInfo(data);
                     for (var i = 0; i < 15; i++) {
                         var mod = (!test && ((bits >> i) & 1) == 1);
-                        if (i < 6) { this.modules[i][8] = mod; }
-                        else if (i < 8) { this.modules[i + 1][8] = mod; }
-                        else { this.modules[this.moduleCount - 15 + i][8] = mod; }
+                        if (i < 6) this.modules[i][8] = mod;
+                        else if (i < 8) this.modules[i + 1][8] = mod;
+                        else this.modules[this.moduleCount - 15 + i][8] = mod;
                     }
                     for (var i = 0; i < 15; i++) {
                         var mod = (!test && ((bits >> i) & 1) == 1);
-                        if (i < 8) { this.modules[8][this.moduleCount - i - 1] = mod; }
-                        else if (i < 9) { this.modules[8][15 - i - 1 + 1] = mod; }
-                        else { this.modules[8][15 - i - 1] = mod; }
+                        if (i < 8) this.modules[8][this.moduleCount - i - 1] = mod;
+                        else if (i < 9) this.modules[8][15 - i - 1 + 1] = mod;
+                        else this.modules[8][15 - i - 1] = mod;
                     }
                     this.modules[this.moduleCount - 8][8] = (!test);
                 },
-                mapData: function(data, maskPattern) {
-                    var inc = -1;
-                    var row = this.moduleCount - 1;
-                    var bitIndex = 7;
-                    var byteIndex = 0;
+                mapData: function (data, maskPattern) {
+                    var inc = -1, row = this.moduleCount - 1, bitIndex = 7, byteIndex = 0;
                     for (var col = this.moduleCount - 1; col > 0; col -= 2) {
                         if (col == 6) col--;
                         while (true) {
                             for (var c = 0; c < 2; c++) {
                                 if (this.modules[row][col - c] == null) {
                                     var dark = false;
-                                    if (byteIndex < data.length) {
-                                        dark = (((data[byteIndex] >>> bitIndex) & 1) == 1);
-                                    }
-                                    var mask = QRUtil.getMask(maskPattern, row, col - c);
-                                    if (mask) dark = !dark;
+                                    if (byteIndex < data.length) dark = (((data[byteIndex] >>> bitIndex) & 1) == 1);
+                                    if (QRUtil.getMask(maskPattern, row, col - c)) dark = !dark;
                                     this.modules[row][col - c] = dark;
                                     bitIndex--;
                                     if (bitIndex == -1) { byteIndex++; bitIndex = 7; }
                                 }
                             }
                             row += inc;
-                            if (row < 0 || this.moduleCount <= row) {
-                                row -= inc;
-                                inc = -inc;
-                                break;
-                            }
+                            if (row < 0 || this.moduleCount <= row) { row -= inc; inc = -inc; break; }
                         }
                     }
                 }
             };
 
-            QRCode.createData = function(typeNumber, errorCorrectLevel, dataList) {
-                var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, errorCorrectLevel);
-                var buffer = new QRBitBuffer();
+            QRCodeModel.createData = function (typeNumber, ecl, dataList) {
+                var rs = QRRSBlock.getRSBlocks(typeNumber, ecl), buf = new QRBitBuffer(), tdc = 0;
+                for (var i = 0; i < rs.length; i++) tdc += rs[i].dataCount;
                 for (var i = 0; i < dataList.length; i++) {
-                    var data = dataList[i];
-                    buffer.put(data.mode, 4);
-                    buffer.put(data.getLength(), QRUtil.getLengthInBits(data.mode, typeNumber));
-                    data.write(buffer);
+                    var d = dataList[i]; buf.put(d.mode, 4);
+                    buf.put(d.getLength(), QRUtil.getLengthInBits(d.mode, typeNumber)); d.write(buf);
                 }
-                var totalDataCount = 0;
-                for (var i = 0; i < rsBlocks.length; i++) {
-                    totalDataCount += rsBlocks[i].dataCount;
-                }
-                if (buffer.getLengthInBits() > totalDataCount * 8) {
-                    throw new Error('code length overflow');
-                }
-                if (buffer.getLengthInBits() + 4 <= totalDataCount * 8) {
-                    buffer.put(0, 4);
-                }
-                while (buffer.getLengthInBits() % 8 != 0) {
-                    buffer.putBit(false);
-                }
+                if (buf.getLengthInBits() > tdc * 8) throw new Error('code length overflow');
+                if (buf.getLengthInBits() + 4 <= tdc * 8) buf.put(0, 4);
+                while (buf.getLengthInBits() % 8 != 0) buf.putBit(false);
                 while (true) {
-                    if (buffer.getLengthInBits() >= totalDataCount * 8) break;
-                    buffer.put(PAD0, 8);
-                    if (buffer.getLengthInBits() >= totalDataCount * 8) break;
-                    buffer.put(PAD1, 8);
+                    if (buf.getLengthInBits() >= tdc * 8) break; buf.put(PAD0, 8);
+                    if (buf.getLengthInBits() >= tdc * 8) break; buf.put(PAD1, 8);
                 }
-                return QRCode.createBytes(buffer, rsBlocks);
+                return QRCodeModel.createBytes(buf, rs);
             };
 
-            QRCode.createBytes = function(buffer, rsBlocks) {
-                var offset = 0;
-                var maxDcCount = 0;
-                var maxEcCount = 0;
-                var dcdata = new Array(rsBlocks.length);
-                var ecdata = new Array(rsBlocks.length);
-                for (var r = 0; r < rsBlocks.length; r++) {
-                    var dcCount = rsBlocks[r].dataCount;
-                    var ecCount = rsBlocks[r].totalCount - dcCount;
-                    maxDcCount = Math.max(maxDcCount, dcCount);
-                    maxEcCount = Math.max(maxEcCount, ecCount);
-                    dcdata[r] = new Array(dcCount);
-                    for (var i = 0; i < dcdata[r].length; i++) {
-                        dcdata[r][i] = 0xff & buffer.buffer[i + offset];
-                    }
-                    offset += dcCount;
-                    var rsPoly = QRUtil.getErrorCorrectPolynomial(ecCount);
-                    var rawPoly = new QRPolynomial(dcdata[r], rsPoly.getLength() - 1);
-                    var modPoly = rawPoly.mod(rsPoly);
-                    ecdata[r] = new Array(rsPoly.getLength() - 1);
-                    for (var i = 0; i < ecdata[r].length; i++) {
-                        var modIndex = i + modPoly.getLength() - ecdata[r].length;
-                        ecdata[r][i] = (modIndex >= 0) ? modPoly.get(modIndex) : 0;
+            QRCodeModel.createBytes = function (buf, rs) {
+                var off = 0, maxDc = 0, maxEc = 0, dc = new Array(rs.length), ec = new Array(rs.length);
+                for (var r = 0; r < rs.length; r++) {
+                    var dcC = rs[r].dataCount, ecC = rs[r].totalCount - dcC;
+                    maxDc = Math.max(maxDc, dcC); maxEc = Math.max(maxEc, ecC);
+                    dc[r] = new Array(dcC);
+                    for (var i = 0; i < dc[r].length; i++) dc[r][i] = 0xff & buf.buffer[i + off];
+                    off += dcC;
+                    var rsP = QRUtil.getErrorCorrectPolynomial(ecC);
+                    var rawP = new QRPolynomial(dc[r], rsP.getLength() - 1);
+                    var modP = rawP.mod(rsP);
+                    ec[r] = new Array(rsP.getLength() - 1);
+                    for (var i = 0; i < ec[r].length; i++) {
+                        var modI = i + modP.getLength() - ec[r].length;
+                        ec[r][i] = (modI >= 0) ? modP.get(modI) : 0;
                     }
                 }
-                var totalCodeCount = 0;
-                for (var i = 0; i < rsBlocks.length; i++) {
-                    totalCodeCount += rsBlocks[i].totalCount;
-                }
-                var data = new Array(totalCodeCount);
-                var index = 0;
-                for (var i = 0; i < maxDcCount; i++) {
-                    for (var r = 0; r < rsBlocks.length; r++) {
-                        if (i < dcdata[r].length) data[index++] = dcdata[r][i];
-                    }
-                }
-                for (var i = 0; i < maxEcCount; i++) {
-                    for (var r = 0; r < rsBlocks.length; r++) {
-                        if (i < ecdata[r].length) data[index++] = ecdata[r][i];
-                    }
-                }
+                var totalCC = 0;
+                for (var i = 0; i < rs.length; i++) totalCC += rs[i].totalCount;
+                var data = new Array(totalCC), idx = 0;
+                for (var i = 0; i < maxDc; i++) for (var r = 0; r < rs.length; r++) if (i < dc[r].length) data[idx++] = dc[r][i];
+                for (var i = 0; i < maxEc; i++) for (var r = 0; r < rs.length; r++) if (i < ec[r].length) data[idx++] = ec[r][i];
                 return data;
             };
 
-            // QRUtil
             var QRUtil = {
-                PATTERN_POSITION_TABLE: [
-                    [], [6, 18], [6, 22], [6, 26], [6, 30], [6, 34],
-                    [6, 22, 38], [6, 24, 42], [6, 26, 46], [6, 28, 50], [6, 30, 54],
-                    [6, 32, 58], [6, 34, 62], [6, 26, 46, 66], [6, 26, 48, 70],
-                    [6, 26, 50, 74], [6, 30, 54, 78], [6, 30, 56, 82], [6, 30, 58, 86],
-                    [6, 34, 62, 90], [6, 28, 50, 72, 94], [6, 26, 50, 74, 98],
-                    [6, 30, 54, 78, 102], [6, 28, 54, 80, 106], [6, 32, 58, 84, 110],
-                    [6, 30, 58, 86, 114], [6, 34, 62, 90, 118], [6, 26, 50, 74, 98, 122],
-                    [6, 30, 54, 78, 102, 126], [6, 26, 52, 78, 104, 130],
-                    [6, 30, 56, 82, 108, 134], [6, 34, 60, 86, 112, 138],
-                    [6, 30, 58, 86, 114, 142], [6, 34, 62, 90, 118, 146],
-                    [6, 30, 54, 78, 102, 126, 150], [6, 24, 50, 76, 102, 128, 154],
-                    [6, 28, 54, 80, 106, 132, 158], [6, 32, 58, 84, 110, 136, 162],
-                    [6, 26, 54, 82, 110, 138, 166], [6, 30, 58, 86, 114, 142, 170]
-                ],
+                PATTERN_POSITION_TABLE: [[], [6, 18], [6, 22], [6, 26], [6, 30], [6, 34], [6, 22, 38], [6, 24, 42], [6, 26, 46], [6, 28, 50], [6, 30, 54], [6, 32, 58], [6, 34, 62], [6, 26, 46, 66], [6, 26, 48, 70], [6, 26, 50, 74], [6, 30, 54, 78], [6, 30, 56, 82], [6, 30, 58, 86], [6, 34, 62, 90], [6, 28, 50, 72, 94], [6, 26, 50, 74, 98], [6, 30, 54, 78, 102], [6, 28, 54, 80, 106], [6, 32, 58, 84, 110], [6, 30, 58, 86, 114], [6, 34, 62, 90, 118], [6, 26, 50, 74, 98, 122], [6, 30, 54, 78, 102, 126], [6, 26, 52, 78, 104, 130], [6, 30, 56, 82, 108, 134], [6, 34, 60, 86, 112, 138], [6, 30, 58, 86, 114, 142], [6, 34, 62, 90, 118, 146], [6, 30, 54, 78, 102, 126, 150], [6, 24, 50, 76, 102, 128, 154], [6, 28, 54, 80, 106, 132, 158], [6, 32, 58, 84, 110, 136, 162], [6, 26, 54, 82, 110, 138, 166], [6, 30, 58, 86, 114, 142, 170]],
                 G15: (1 << 10) | (1 << 8) | (1 << 5) | (1 << 4) | (1 << 2) | (1 << 1) | (1 << 0),
                 G18: (1 << 12) | (1 << 11) | (1 << 10) | (1 << 9) | (1 << 8) | (1 << 5) | (1 << 2) | (1 << 0),
                 G15_MASK: (1 << 14) | (1 << 12) | (1 << 10) | (1 << 4) | (1 << 1),
-                getBCHTypeInfo: function(data) {
-                    var d = data << 10;
-                    while (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G15) >= 0) {
-                        d ^= (QRUtil.G15 << (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G15)));
-                    }
-                    return ((data << 10) | d) ^ QRUtil.G15_MASK;
-                },
-                getBCHTypeNumber: function(data) {
-                    var d = data << 12;
-                    while (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G18) >= 0) {
-                        d ^= (QRUtil.G18 << (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G18)));
-                    }
-                    return (data << 12) | d;
-                },
-                getBCHDigit: function(data) {
-                    var digit = 0;
-                    while (data != 0) { digit++; data >>>= 1; }
-                    return digit;
-                },
-                getPatternPosition: function(typeNumber) {
-                    return QRUtil.PATTERN_POSITION_TABLE[typeNumber - 1];
-                },
-                getMask: function(maskPattern, i, j) {
-                    switch (maskPattern) {
-                        case 0: return (i + j) % 2 == 0;
-                        case 1: return i % 2 == 0;
-                        case 2: return j % 3 == 0;
-                        case 3: return (i + j) % 3 == 0;
-                        case 4: return (Math.floor(i / 2) + Math.floor(j / 3)) % 2 == 0;
-                        case 5: return (i * j) % 2 + (i * j) % 3 == 0;
-                        case 6: return ((i * j) % 2 + (i * j) % 3) % 2 == 0;
+                getBCHTypeInfo: function (d) { var v = d << 10; while (QRUtil.getBCHDigit(v) - QRUtil.getBCHDigit(QRUtil.G15) >= 0) v ^= (QRUtil.G15 << (QRUtil.getBCHDigit(v) - QRUtil.getBCHDigit(QRUtil.G15))); return ((d << 10) | v) ^ QRUtil.G15_MASK; },
+                getBCHTypeNumber: function (d) { var v = d << 12; while (QRUtil.getBCHDigit(v) - QRUtil.getBCHDigit(QRUtil.G18) >= 0) v ^= (QRUtil.G18 << (QRUtil.getBCHDigit(v) - QRUtil.getBCHDigit(QRUtil.G18))); return (d << 12) | v; },
+                getBCHDigit: function (d) { var dig = 0; while (d != 0) { dig++; d >>>= 1; } return dig; },
+                getPatternPosition: function (t) { return QRUtil.PATTERN_POSITION_TABLE[t - 1]; },
+                getMask: function (m, i, j) {
+                    switch (m) {
+                        case 0: return (i + j) % 2 == 0; case 1: return i % 2 == 0; case 2: return j % 3 == 0;
+                        case 3: return (i + j) % 3 == 0; case 4: return (Math.floor(i / 2) + Math.floor(j / 3)) % 2 == 0;
+                        case 5: return (i * j) % 2 + (i * j) % 3 == 0; case 6: return ((i * j) % 2 + (i * j) % 3) % 2 == 0;
                         case 7: return ((i * j) % 3 + (i + j) % 2) % 2 == 0;
-                        default: throw new Error('bad maskPattern:' + maskPattern);
                     }
                 },
-                getErrorCorrectPolynomial: function(errorCorrectLength) {
+                getErrorCorrectPolynomial: function (ecl) {
                     var a = new QRPolynomial([1], 0);
-                    for (var i = 0; i < errorCorrectLength; i++) {
-                        a = a.multiply(new QRPolynomial([1, QRMath.gexp(i)], 0));
-                    }
+                    for (var i = 0; i < ecl; i++) a = a.multiply(new QRPolynomial([1, QRMath.gexp(i)], 0));
                     return a;
                 },
-                getLengthInBits: function(mode, type) {
-                    if (1 <= type && type < 10) return 8;
-                    else if (type < 27) return 16;
-                    else if (type < 41) return 16;
-                    else throw new Error('type:' + type);
-                },
-                getLostPoint: function(qrCode) {
-                    var moduleCount = qrCode.moduleCount;
-                    var lostPoint = 0;
-                    for (var row = 0; row < moduleCount; row++) {
-                        for (var col = 0; col < moduleCount; col++) {
-                            var sameCount = 0;
-                            var dark = qrCode.modules[row][col];
-                            for (var r = -1; r <= 1; r++) {
-                                if (row + r < 0 || moduleCount <= row + r) continue;
-                                for (var c = -1; c <= 1; c++) {
-                                    if (col + c < 0 || moduleCount <= col + c) continue;
-                                    if (r == 0 && c == 0) continue;
-                                    if (dark == qrCode.modules[row + r][col + c]) sameCount++;
-                                }
-                            }
-                            if (sameCount > 5) lostPoint += (3 + sameCount - 5);
-                        }
+                getLengthInBits: function (m, t) { if (t < 10) return 8; return 16; },
+                getLostPoint: function (qr) {
+                    var mc = qr.moduleCount, lp = 0;
+                    for (var r = 0; r < mc; r++) for (var c = 0; c < mc; c++) {
+                        var sc = 0, dk = qr.modules[r][c];
+                        for (var dr = -1; dr <= 1; dr++) { if (r + dr < 0 || mc <= r + dr) continue; for (var dc = -1; dc <= 1; dc++) { if (c + dc < 0 || mc <= c + dc) continue; if (dr == 0 && dc == 0) continue; if (dk == qr.modules[r + dr][c + dc]) sc++; } }
+                        if (sc > 5) lp += (3 + sc - 5);
                     }
-                    return lostPoint;
+                    return lp;
                 }
             };
 
-            // QRMath
             var QRMath = {
-                glog: function(n) {
-                    if (n < 1) throw new Error('glog(' + n + ')');
-                    return QRMath.LOG_TABLE[n];
-                },
-                gexp: function(n) {
-                    while (n < 0) n += 255;
-                    while (n >= 256) n -= 255;
-                    return QRMath.EXP_TABLE[n];
-                },
-                EXP_TABLE: new Array(256),
-                LOG_TABLE: new Array(256)
+                glog: function (n) { return QRMath.LOG_TABLE[n]; },
+                gexp: function (n) { while (n < 0) n += 255; while (n >= 256) n -= 255; return QRMath.EXP_TABLE[n]; },
+                EXP_TABLE: new Array(256), LOG_TABLE: new Array(256)
             };
-
             for (var i = 0; i < 8; i++) QRMath.EXP_TABLE[i] = 1 << i;
             for (var i = 8; i < 256; i++) QRMath.EXP_TABLE[i] = QRMath.EXP_TABLE[i - 4] ^ QRMath.EXP_TABLE[i - 5] ^ QRMath.EXP_TABLE[i - 6] ^ QRMath.EXP_TABLE[i - 8];
             for (var i = 0; i < 255; i++) QRMath.LOG_TABLE[QRMath.EXP_TABLE[i]] = i;
 
-            // QRPolynomial
             function QRPolynomial(num, shift) {
-                if (num.length == undefined) throw new Error(num.length + '/' + shift);
-                var offset = 0;
-                while (offset < num.length && num[offset] == 0) offset++;
-                this.num = new Array(num.length - offset + shift);
-                for (var i = 0; i < num.length - offset; i++) this.num[i] = num[i + offset];
+                var off = 0; while (off < num.length && num[off] == 0) off++;
+                this.num = new Array(num.length - off + shift);
+                for (var i = 0; i < num.length - off; i++) this.num[i] = num[i + off];
             }
-
             QRPolynomial.prototype = {
-                get: function(index) { return this.num[index]; },
-                getLength: function() { return this.num.length; },
-                multiply: function(e) {
+                get: function (i) { return this.num[i]; }, getLength: function () { return this.num.length; },
+                multiply: function (e) {
                     var num = new Array(this.getLength() + e.getLength() - 1);
-                    for (var i = 0; i < this.getLength(); i++) {
-                        for (var j = 0; j < e.getLength(); j++) {
-                            num[i + j] ^= QRMath.gexp(QRMath.glog(this.get(i)) + QRMath.glog(e.get(j)));
-                        }
-                    }
+                    for (var i = 0; i < this.getLength(); i++) for (var j = 0; j < e.getLength(); j++) num[i + j] ^= QRMath.gexp(QRMath.glog(this.get(i)) + QRMath.glog(e.get(j)));
                     return new QRPolynomial(num, 0);
                 },
-                mod: function(e) {
+                mod: function (e) {
                     if (this.getLength() - e.getLength() < 0) return this;
                     var ratio = QRMath.glog(this.get(0)) - QRMath.glog(e.get(0));
                     var num = new Array(this.getLength());
@@ -1252,7 +979,6 @@
                 }
             };
 
-            // QRRSBlock
             var QRRSBlock = {
                 RS_BLOCK_TABLE: [
                     [1, 26, 19], [1, 26, 16], [1, 26, 13], [1, 26, 9],
@@ -1264,189 +990,172 @@
                     [2, 98, 78], [4, 49, 31], [2, 32, 14, 4, 33, 15], [4, 39, 13, 1, 40, 14],
                     [2, 121, 97], [2, 60, 38, 2, 61, 39], [4, 40, 18, 2, 41, 19], [4, 40, 14, 2, 41, 15],
                     [2, 146, 116], [3, 58, 36, 2, 59, 37], [4, 36, 16, 4, 37, 17], [4, 36, 12, 4, 37, 13],
-                    [2, 86, 68, 2, 87, 69], [4, 69, 43, 1, 70, 44], [6, 43, 19, 2, 44, 20], [6, 43, 15, 2, 44, 16],
+                    [2, 86, 68, 2, 87, 69], [4, 69, 43, 1, 70, 44], [6, 43, 19, 2, 44, 20], [6, 43, 15, 2, 44, 16]
                 ],
-                getRSBlocks: function(typeNumber, errorCorrectLevel) {
-                    var rsBlock = QRRSBlock.getRsBlockTable(typeNumber, errorCorrectLevel);
-                    if (rsBlock == undefined) throw new Error('bad rs block @ typeNumber:' + typeNumber + '/errorCorrectLevel:' + errorCorrectLevel);
-                    var length = rsBlock.length / 3;
+                getRSBlocks: function (tn, ecl) {
+                    var rs = QRRSBlock.getRsBlockTable(tn, ecl);
                     var list = [];
-                    for (var i = 0; i < length; i++) {
-                        var count = rsBlock[i * 3 + 0];
-                        var totalCount = rsBlock[i * 3 + 1];
-                        var dataCount = rsBlock[i * 3 + 2];
-                        for (var j = 0; j < count; j++) {
-                            list.push({ totalCount: totalCount, dataCount: dataCount });
-                        }
+                    for (var i = 0; i < rs.length / 3; i++) {
+                        var cnt = rs[i * 3], tc = rs[i * 3 + 1], dc = rs[i * 3 + 2];
+                        for (var j = 0; j < cnt; j++) list.push({ totalCount: tc, dataCount: dc });
                     }
                     return list;
                 },
-                getRsBlockTable: function(typeNumber, errorCorrectLevel) {
-                    switch (errorCorrectLevel) {
-                        case 1: return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 0];
-                        case 0: return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 1];
-                        case 3: return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 2];
-                        case 2: return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 3];
-                        default: return undefined;
+                getRsBlockTable: function (tn, ecl) {
+                    switch (ecl) {
+                        case 1: return QRRSBlock.RS_BLOCK_TABLE[(tn - 1) * 4];
+                        case 0: return QRRSBlock.RS_BLOCK_TABLE[(tn - 1) * 4 + 1];
+                        case 3: return QRRSBlock.RS_BLOCK_TABLE[(tn - 1) * 4 + 2];
+                        case 2: return QRRSBlock.RS_BLOCK_TABLE[(tn - 1) * 4 + 3];
                     }
                 }
             };
 
-            // QRBitBuffer
-            function QRBitBuffer() {
-                this.buffer = [];
-                this.length = 0;
-            }
-
+            function QRBitBuffer() { this.buffer = []; this.length = 0; }
             QRBitBuffer.prototype = {
-                get: function(index) {
-                    var bufIndex = Math.floor(index / 8);
-                    return ((this.buffer[bufIndex] >>> (7 - index % 8)) & 1) == 1;
-                },
-                put: function(num, length) {
-                    for (var i = 0; i < length; i++) {
-                        this.putBit(((num >>> (length - i - 1)) & 1) == 1);
-                    }
-                },
-                getLengthInBits: function() { return this.length; },
-                putBit: function(bit) {
-                    var bufIndex = Math.floor(this.length / 8);
-                    if (this.buffer.length <= bufIndex) this.buffer.push(0);
-                    if (bit) this.buffer[bufIndex] |= (0x80 >>> (this.length % 8));
+                get: function (i) { return ((this.buffer[Math.floor(i / 8)] >>> (7 - i % 8)) & 1) == 1; },
+                put: function (num, len) { for (var i = 0; i < len; i++) this.putBit(((num >>> (len - i - 1)) & 1) == 1); },
+                getLengthInBits: function () { return this.length; },
+                putBit: function (bit) {
+                    var bi = Math.floor(this.length / 8);
+                    if (this.buffer.length <= bi) this.buffer.push(0);
+                    if (bit) this.buffer[bi] |= (0x80 >>> (this.length % 8));
                     this.length++;
                 }
             };
 
-            // Draw to canvas function
-            function drawQR(text, canvas, size) {
-                var qr = new QRCode(0, 1); // Auto type, Medium error correction
-                qr.addData(text);
-                qr.make();
-
-                var ctx = canvas.getContext('2d');
-                var moduleCount = qr.moduleCount;
-                var cellSize = Math.floor(size / (moduleCount + 8));
-                var offset = Math.floor((size - cellSize * moduleCount) / 2);
-
-                canvas.width = size;
-                canvas.height = size;
-
-                // White background
-                ctx.fillStyle = '#ffffff';
-                ctx.fillRect(0, 0, size, size);
-
-                // Draw modules
-                ctx.fillStyle = '#3e2723';
-                for (var row = 0; row < moduleCount; row++) {
-                    for (var col = 0; col < moduleCount; col++) {
-                        if (qr.modules[row][col]) {
-                            ctx.fillRect(
-                                offset + col * cellSize,
-                                offset + row * cellSize,
-                                cellSize, cellSize
-                            );
-                        }
-                    }
+            return {
+                draw: function (text, canvas, size) {
+                    var qr = new QRCodeModel(0, 1);
+                    qr.addData(text);
+                    qr.make();
+                    var ctx = canvas.getContext('2d');
+                    var mc = qr.moduleCount;
+                    var cs = Math.floor(size / (mc + 8));
+                    var off = Math.floor((size - cs * mc) / 2);
+                    canvas.width = size;
+                    canvas.height = size;
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, size, size);
+                    ctx.fillStyle = '#3e2723';
+                    for (var r = 0; r < mc; r++)
+                        for (var c = 0; c < mc; c++)
+                            if (qr.modules[r][c])
+                                ctx.fillRect(off + c * cs, off + r * cs, cs, cs);
                 }
-            }
-
-            return { draw: drawQR };
+            };
         })();
 
         // ============ STATE ============
-        let stream = null;
-        let currentFilter = 'none';
-        let currentOverlay = 'classic';
-        let rawImageData = null;
-        let facingMode = 'user';
-        let photos = JSON.parse(localStorage.getItem('solPhotos') || '[]');
-        let deleteTargetId = null;
-        const ZOOM_LEVEL = 1.3;
+        var stream = null;
+        var currentFilter = 'none';
+        var currentOverlay = 'classic';
+        var rawImageData = null;
+        var facingMode = 'user';
+        var photos = JSON.parse(localStorage.getItem('solPhotos') || '[]');
+        var deleteTargetId = null;
+        var lastPhotoDataURL = null;
+        var ZOOM_LEVEL = 1.3;
+        var torchTrack = null;
 
         // ============ NAVIGATION ============
-        function showScreen(screenId) {
-            document.querySelectorAll('#welcome-screen, #camera-screen, #preview-screen, #qr-screen, #gallery-screen')
-                .forEach(el => el.style.display = 'none');
-            document.getElementById(screenId).style.display = 'flex';
+        function showScreen(id) {
+            var screens = ['welcome-screen', 'camera-screen', 'preview-screen', 'qr-screen', 'gallery-screen'];
+            for (var i = 0; i < screens.length; i++) document.getElementById(screens[i]).style.display = 'none';
+            document.getElementById(id).style.display = 'flex';
         }
 
-        function goHome() {
-            stopCamera();
-            showScreen('welcome-screen');
-        }
-
-        function goToCamera() {
-            showScreen('camera-screen');
-            startCamera();
-        }
+        function goHome() { stopCamera(); showScreen('welcome-screen'); }
+        function goToCamera() { showScreen('camera-screen'); startCamera(); }
 
         // ============ CAMERA ============
-        async function startCamera() {
+        function startCamera() {
             showScreen('camera-screen');
-            const video = document.getElementById('video');
-            try {
-                if (stream) {
-                    stream.getTracks().forEach(t => t.stop());
-                }
-                stream = await navigator.mediaDevices.getUserMedia({
-                    video: {
-                        facingMode: facingMode,
-                        width: { ideal: 1280 },
-                        height: { ideal: 960 }
-                    },
-                    audio: false
-                });
+            var video = document.getElementById('video');
+            if (stream) { stream.getTracks().forEach(function (t) { t.stop(); }); }
+
+            navigator.mediaDevices.getUserMedia({
+                video: { facingMode: facingMode, width: { ideal: 1280 }, height: { ideal: 960 } },
+                audio: false
+            }).then(function (s) {
+                stream = s;
                 video.srcObject = stream;
-                if (facingMode === 'user') {
-                    video.classList.remove('back-camera');
-                } else {
-                    video.classList.add('back-camera');
-                }
-            } catch (err) {
-                alert('Could not access camera. Please allow camera permissions and try again!');
-                console.error(err);
-            }
+                if (facingMode === 'user') video.classList.remove('back-camera');
+                else video.classList.add('back-camera');
+
+                // Store torch track reference
+                var tracks = stream.getVideoTracks();
+                if (tracks.length > 0) torchTrack = tracks[0];
+
+            }).catch(function (err) {
+                alert('Could not access camera. Please allow camera permissions!');
+            });
         }
 
         function stopCamera() {
-            if (stream) {
-                stream.getTracks().forEach(t => t.stop());
-                stream = null;
-            }
+            if (stream) { stream.getTracks().forEach(function (t) { t.stop(); }); stream = null; torchTrack = null; }
         }
 
-        async function switchCamera() {
+        function switchCamera() {
             facingMode = facingMode === 'user' ? 'environment' : 'user';
-            await startCamera();
+            startCamera();
         }
 
-        // ============ FLASH ============
-        function triggerFlash() {
-            const flash = document.getElementById('full-flash');
+        // ============ REAL FLASH ============
+        function triggerFlash(callback) {
+            // Try hardware torch first (works with back camera)
+            var usedTorch = false;
+
+            if (torchTrack) {
+                try {
+                    var capabilities = torchTrack.getCapabilities();
+                    if (capabilities && capabilities.torch) {
+                        // Turn ON torch
+                        torchTrack.applyConstraints({ advanced: [{ torch: true }] });
+                        usedTorch = true;
+
+                        setTimeout(function () {
+                            // Turn OFF torch after capture
+                            torchTrack.applyConstraints({ advanced: [{ torch: false }] });
+                        }, 500);
+                    }
+                } catch (e) {
+                    console.log('Torch not available');
+                }
+            }
+
+            // Screen flash (acts as fill light for front camera)
+            var flash = document.getElementById('flash-overlay');
             flash.style.display = 'block';
-            flash.style.animation = 'none';
-            void flash.offsetWidth;
-            flash.style.animation = 'fullFlashAnim 0.8s ease forwards';
+            flash.style.background = 'white';
+            flash.style.opacity = '1';
 
-            const container = document.querySelector('.camera-container');
-            const camFlash = document.createElement('div');
-            camFlash.className = 'camera-flash';
-            container.appendChild(camFlash);
+            // Set max screen brightness via white screen
+            setTimeout(function () {
+                if (callback) callback();
+            }, 120);
 
-            setTimeout(() => {
+            // Fade out flash
+            setTimeout(function () {
+                flash.style.transition = 'opacity 0.3s ease';
+                flash.style.opacity = '0';
+            }, 250);
+
+            setTimeout(function () {
                 flash.style.display = 'none';
-                camFlash.remove();
-            }, 800);
+                flash.style.transition = '';
+                flash.style.opacity = '1';
+            }, 600);
         }
 
         // ============ COUNTDOWN ============
         function startCountdown() {
-            const btn = document.getElementById('capture-btn');
+            var btn = document.getElementById('capture-btn');
             btn.disabled = true;
             btn.style.opacity = '0.5';
 
-            const countdownEl = document.getElementById('countdown');
-            let count = 3;
+            var countdownEl = document.getElementById('countdown');
+            var count = 3;
 
             countdownEl.style.display = 'block';
             countdownEl.textContent = count;
@@ -1454,7 +1163,7 @@
             void countdownEl.offsetWidth;
             countdownEl.style.animation = 'countPulse 0.5s ease';
 
-            const interval = setInterval(() => {
+            var interval = setInterval(function () {
                 count--;
                 if (count > 0) {
                     countdownEl.textContent = count;
@@ -1469,44 +1178,36 @@
                 } else {
                     clearInterval(interval);
                     countdownEl.style.display = 'none';
-                    triggerFlash();
-                    setTimeout(() => {
+
+                    // Flash then capture
+                    triggerFlash(function () {
                         capturePhoto();
                         btn.disabled = false;
                         btn.style.opacity = '1';
-                    }, 150);
+                    });
                 }
             }, 1000);
         }
 
         // ============ CAPTURE ============
         function capturePhoto() {
-            const video = document.getElementById('video');
-            const canvas = document.getElementById('hidden-canvas');
-            const ctx = canvas.getContext('2d');
+            var video = document.getElementById('video');
+            var canvas = document.getElementById('hidden-canvas');
+            var ctx = canvas.getContext('2d');
 
-            const isFront = facingMode === 'user';
-            const zoom = isFront ? ZOOM_LEVEL : 1;
+            var isFront = facingMode === 'user';
+            var zoom = isFront ? ZOOM_LEVEL : 1;
 
-            const sourceWidth = video.videoWidth / zoom;
-            const sourceHeight = video.videoHeight / zoom;
-            const sourceX = (video.videoWidth - sourceWidth) / 2;
-            const sourceY = (video.videoHeight - sourceHeight) / 2;
+            var sw = video.videoWidth / zoom;
+            var sh = video.videoHeight / zoom;
+            var sx = (video.videoWidth - sw) / 2;
+            var sy = (video.videoHeight - sh) / 2;
 
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
 
-            if (isFront) {
-                ctx.translate(canvas.width, 0);
-                ctx.scale(-1, 1);
-            }
-
-            ctx.drawImage(
-                video,
-                sourceX, sourceY, sourceWidth, sourceHeight,
-                0, 0, canvas.width, canvas.height
-            );
-
+            if (isFront) { ctx.translate(canvas.width, 0); ctx.scale(-1, 1); }
+            ctx.drawImage(video, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
             ctx.setTransform(1, 0, 0, 1, 0, 0);
 
             rawImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -1516,235 +1217,165 @@
             renderPreview();
             showScreen('preview-screen');
 
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            document.querySelector('.filter-btn').classList.add('active');
-            document.querySelectorAll('.overlay-btn').forEach(b => b.classList.remove('active'));
-            document.querySelector('.overlay-btn').classList.add('active');
+            var filterBtns = document.querySelectorAll('.filter-btn');
+            for (var i = 0; i < filterBtns.length; i++) filterBtns[i].classList.remove('active');
+            filterBtns[0].classList.add('active');
+
+            var overlayBtns = document.querySelectorAll('.overlay-btn');
+            for (var i = 0; i < overlayBtns.length; i++) overlayBtns[i].classList.remove('active');
+            overlayBtns[0].classList.add('active');
         }
 
         // ============ FILTERS ============
         function applyFilter(filter) {
             currentFilter = filter;
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            var btns = document.querySelectorAll('.filter-btn');
+            for (var i = 0; i < btns.length; i++) btns[i].classList.remove('active');
             event.target.classList.add('active');
             renderPreview();
         }
 
         function processFilter(imageData, filter) {
-            const data = imageData.data;
-            for (let i = 0; i < data.length; i += 4) {
-                let r = data[i], g = data[i + 1], b = data[i + 2];
+            var data = imageData.data;
+            for (var i = 0; i < data.length; i += 4) {
+                var r = data[i], g = data[i + 1], b = data[i + 2];
                 switch (filter) {
                     case 'vintage':
-                        data[i] = Math.min(255, r * 1.1 + 20);
-                        data[i + 1] = Math.min(255, g * 0.9 + 10);
-                        data[i + 2] = Math.min(255, b * 0.7);
-                        break;
+                        data[i] = Math.min(255, r * 1.1 + 20); data[i + 1] = Math.min(255, g * 0.9 + 10); data[i + 2] = Math.min(255, b * 0.7); break;
                     case 'bw':
-                        const gray = r * 0.299 + g * 0.587 + b * 0.114;
-                        data[i] = data[i + 1] = data[i + 2] = gray;
-                        break;
+                        var gray = r * 0.299 + g * 0.587 + b * 0.114; data[i] = data[i + 1] = data[i + 2] = gray; break;
                     case 'sepia':
-                        data[i] = Math.min(255, r * 0.393 + g * 0.769 + b * 0.189);
-                        data[i + 1] = Math.min(255, r * 0.349 + g * 0.686 + b * 0.168);
-                        data[i + 2] = Math.min(255, r * 0.272 + g * 0.534 + b * 0.131);
-                        break;
+                        data[i] = Math.min(255, r * 0.393 + g * 0.769 + b * 0.189); data[i + 1] = Math.min(255, r * 0.349 + g * 0.686 + b * 0.168); data[i + 2] = Math.min(255, r * 0.272 + g * 0.534 + b * 0.131); break;
                     case 'warm':
-                        data[i] = Math.min(255, r * 1.15);
-                        data[i + 1] = Math.min(255, g * 1.05);
-                        data[i + 2] = Math.min(255, b * 0.85);
-                        break;
+                        data[i] = Math.min(255, r * 1.15); data[i + 1] = Math.min(255, g * 1.05); data[i + 2] = Math.min(255, b * 0.85); break;
                     case 'bright':
-                        data[i] = Math.min(255, r * 1.2 + 15);
-                        data[i + 1] = Math.min(255, g * 1.2 + 15);
-                        data[i + 2] = Math.min(255, b * 1.2 + 15);
-                        break;
+                        data[i] = Math.min(255, r * 1.2 + 15); data[i + 1] = Math.min(255, g * 1.2 + 15); data[i + 2] = Math.min(255, b * 1.2 + 15); break;
                 }
             }
-            return imageData;
         }
 
         // ============ OVERLAYS ============
         function setOverlay(overlay) {
             currentOverlay = overlay;
-            document.querySelectorAll('.overlay-btn').forEach(b => b.classList.remove('active'));
+            var btns = document.querySelectorAll('.overlay-btn');
+            for (var i = 0; i < btns.length; i++) btns[i].classList.remove('active');
             event.target.classList.add('active');
             renderPreview();
         }
 
         function drawOverlay(ctx, w, h) {
-            const scale = w / 640;
+            var s = w / 640;
             switch (currentOverlay) {
                 case 'classic':
-                    ctx.font = `${36 * scale}px Sacramento`;
-                    ctx.fillStyle = '#ffe0b2';
-                    ctx.shadowColor = 'rgba(0,0,0,0.8)';
-                    ctx.shadowBlur = 6 * scale;
-                    ctx.textAlign = 'center';
-                    ctx.fillText('Welcome Sol 🧸', w / 2, 40 * scale);
-                    ctx.font = `${32 * scale}px serif`;
-                    ctx.fillText('🧸', 25 * scale, 38 * scale);
-                    ctx.fillText('🧸', w - 25 * scale, 38 * scale);
-                    ctx.fillText('🤎', 25 * scale, h - 12 * scale);
-                    ctx.fillText('🤎', w - 25 * scale, h - 12 * scale);
-                    ctx.font = `${28 * scale}px serif`;
-                    ctx.fillText('🧸🤎🧸', w / 2, h - 12 * scale);
-                    ctx.shadowBlur = 0;
-                    ctx.strokeStyle = 'rgba(255, 224, 178, 0.4)';
-                    ctx.lineWidth = 3 * scale;
-                    ctx.strokeRect(8 * scale, 8 * scale, w - 16 * scale, h - 16 * scale);
-                    break;
+                    ctx.font = (36 * s) + 'px Sacramento'; ctx.fillStyle = '#ffe0b2'; ctx.shadowColor = 'rgba(0,0,0,0.8)'; ctx.shadowBlur = 6 * s; ctx.textAlign = 'center';
+                    ctx.fillText('Welcome Sol 🧸', w / 2, 40 * s);
+                    ctx.font = (32 * s) + 'px serif';
+                    ctx.fillText('🧸', 25 * s, 38 * s); ctx.fillText('🧸', w - 25 * s, 38 * s);
+                    ctx.fillText('🤎', 25 * s, h - 12 * s); ctx.fillText('🤎', w - 25 * s, h - 12 * s);
+                    ctx.font = (28 * s) + 'px serif'; ctx.fillText('🧸🤎🧸', w / 2, h - 12 * s);
+                    ctx.shadowBlur = 0; ctx.strokeStyle = 'rgba(255,224,178,0.4)'; ctx.lineWidth = 3 * s;
+                    ctx.strokeRect(8 * s, 8 * s, w - 16 * s, h - 16 * s); break;
                 case 'hearts':
-                    ctx.font = `${36 * scale}px Sacramento`;
-                    ctx.fillStyle = '#ffe0b2';
-                    ctx.shadowColor = 'rgba(0,0,0,0.8)';
-                    ctx.shadowBlur = 6 * scale;
-                    ctx.textAlign = 'center';
-                    ctx.fillText("Sol's Baby Shower", w / 2, 40 * scale);
-                    ctx.font = `${28 * scale}px serif`;
-                    ctx.fillText('🤎', 25 * scale, 38 * scale);
-                    ctx.fillText('🤎', w - 25 * scale, 38 * scale);
-                    ctx.fillText('🤎', 25 * scale, h - 12 * scale);
-                    ctx.fillText('🤎', w - 25 * scale, h - 12 * scale);
-                    ctx.fillText('🤎🧸🤎🧸🤎', w / 2, h - 12 * scale);
-                    ctx.shadowBlur = 0;
-                    break;
+                    ctx.font = (36 * s) + 'px Sacramento'; ctx.fillStyle = '#ffe0b2'; ctx.shadowColor = 'rgba(0,0,0,0.8)'; ctx.shadowBlur = 6 * s; ctx.textAlign = 'center';
+                    ctx.fillText("Sol's Baby Shower", w / 2, 40 * s);
+                    ctx.font = (28 * s) + 'px serif';
+                    ctx.fillText('🤎', 25 * s, 38 * s); ctx.fillText('🤎', w - 25 * s, 38 * s);
+                    ctx.fillText('🤎', 25 * s, h - 12 * s); ctx.fillText('🤎', w - 25 * s, h - 12 * s);
+                    ctx.fillText('🤎🧸🤎🧸🤎', w / 2, h - 12 * s); ctx.shadowBlur = 0; break;
                 case 'stars':
-                    ctx.font = `${36 * scale}px Sacramento`;
-                    ctx.fillStyle = '#ffe0b2';
-                    ctx.shadowColor = 'rgba(0,0,0,0.8)';
-                    ctx.shadowBlur = 6 * scale;
-                    ctx.textAlign = 'center';
-                    ctx.fillText('Little Star Sol ⭐', w / 2, 40 * scale);
-                    ctx.font = `${28 * scale}px serif`;
-                    ctx.fillText('⭐', 25 * scale, 38 * scale);
-                    ctx.fillText('⭐', w - 25 * scale, 38 * scale);
-                    ctx.fillText('✨', 25 * scale, h - 12 * scale);
-                    ctx.fillText('✨', w - 25 * scale, h - 12 * scale);
-                    ctx.fillText('⭐✨⭐', w / 2, h - 12 * scale);
-                    ctx.shadowBlur = 0;
-                    break;
+                    ctx.font = (36 * s) + 'px Sacramento'; ctx.fillStyle = '#ffe0b2'; ctx.shadowColor = 'rgba(0,0,0,0.8)'; ctx.shadowBlur = 6 * s; ctx.textAlign = 'center';
+                    ctx.fillText('Little Star Sol ⭐', w / 2, 40 * s);
+                    ctx.font = (28 * s) + 'px serif';
+                    ctx.fillText('⭐', 25 * s, 38 * s); ctx.fillText('⭐', w - 25 * s, 38 * s);
+                    ctx.fillText('✨', 25 * s, h - 12 * s); ctx.fillText('✨', w - 25 * s, h - 12 * s);
+                    ctx.fillText('⭐✨⭐', w / 2, h - 12 * s); ctx.shadowBlur = 0; break;
                 case 'minimal':
-                    ctx.font = `${30 * scale}px Sacramento`;
-                    ctx.fillStyle = 'rgba(255, 224, 178, 0.8)';
-                    ctx.shadowColor = 'rgba(0,0,0,0.6)';
-                    ctx.shadowBlur = 4 * scale;
-                    ctx.textAlign = 'right';
-                    ctx.fillText('Sol 🧸', w - 20 * scale, h - 15 * scale);
-                    ctx.shadowBlur = 0;
-                    break;
-                case 'none':
-                    break;
+                    ctx.font = (30 * s) + 'px Sacramento'; ctx.fillStyle = 'rgba(255,224,178,0.8)'; ctx.shadowColor = 'rgba(0,0,0,0.6)'; ctx.shadowBlur = 4 * s; ctx.textAlign = 'right';
+                    ctx.fillText('Sol 🧸', w - 20 * s, h - 15 * s); ctx.shadowBlur = 0; break;
+                case 'none': break;
             }
         }
 
         // ============ RENDER PREVIEW ============
         function renderPreview() {
-            const canvas = document.getElementById('preview-canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = rawImageData.width;
-            canvas.height = rawImageData.height;
-            const filtered = new ImageData(
-                new Uint8ClampedArray(rawImageData.data),
-                rawImageData.width,
-                rawImageData.height
-            );
-            if (currentFilter !== 'none') {
-                processFilter(filtered, currentFilter);
-            }
+            var canvas = document.getElementById('preview-canvas');
+            var ctx = canvas.getContext('2d');
+            canvas.width = rawImageData.width; canvas.height = rawImageData.height;
+            var filtered = new ImageData(new Uint8ClampedArray(rawImageData.data), rawImageData.width, rawImageData.height);
+            if (currentFilter !== 'none') processFilter(filtered, currentFilter);
             ctx.putImageData(filtered, 0, 0);
             drawOverlay(ctx, canvas.width, canvas.height);
         }
 
         // ============ SAVE & QR ============
         function saveAndShowQR() {
-            const canvas = document.getElementById('preview-canvas');
-            const dataURL = canvas.toDataURL('image/jpeg', 0.85);
+            var canvas = document.getElementById('preview-canvas');
+            lastPhotoDataURL = canvas.toDataURL('image/jpeg', 0.85);
 
-            const photoEntry = {
-                id: Date.now(),
-                data: dataURL,
-                timestamp: new Date().toLocaleString()
-            };
+            var photoEntry = { id: Date.now(), data: lastPhotoDataURL, timestamp: new Date().toLocaleString() };
             photos.push(photoEntry);
-
-            if (photos.length > 50) {
-                photos = photos.slice(-50);
-            }
+            if (photos.length > 50) photos = photos.slice(-50);
 
             try {
                 localStorage.setItem('solPhotos', JSON.stringify(photos));
             } catch (e) {
-                console.warn('Storage full, removing old photos');
                 photos = photos.slice(-20);
                 localStorage.setItem('solPhotos', JSON.stringify(photos));
             }
+
+            // Show preview of saved photo
+            document.getElementById('qr-photo-preview').src = lastPhotoDataURL;
 
             showScreen('qr-screen');
             generateQR();
         }
 
         function generateQR() {
+            // Create a tiny HTML page that displays the photo as a data URL
+            // We'll host the photo inline in a minimal page URL
+            // Since data URLs are too long for QR, we link to the gallery
             var galleryURL = window.location.href.split('#')[0] + '#gallery';
             var qrCanvas = document.getElementById('qr-image');
-            document.getElementById('qr-url-display').textContent = '🔗 ' + galleryURL;
 
             try {
-                QRCode.draw(galleryURL, qrCanvas, 280);
-                console.log('QR code generated successfully!');
+                QRCodeGen.draw(galleryURL, qrCanvas, 280);
             } catch (e) {
-                console.error('QR generation error:', e);
-                // Fallback - draw a message on canvas
+                // Fallback
                 var ctx = qrCanvas.getContext('2d');
-                qrCanvas.width = 280;
-                qrCanvas.height = 280;
-                ctx.fillStyle = '#fff';
-                ctx.fillRect(0, 0, 280, 280);
-                ctx.fillStyle = '#3e2723';
-                ctx.font = '14px Poppins';
-                ctx.textAlign = 'center';
-                ctx.fillText('Visit the link below', 140, 130);
-                ctx.fillText('on your phone!', 140, 155);
+                qrCanvas.width = 280; qrCanvas.height = 280;
+                ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, 280, 280);
+                ctx.fillStyle = '#3e2723'; ctx.font = '16px Poppins'; ctx.textAlign = 'center';
+                ctx.fillText('Open this link on your phone:', 140, 120);
+                ctx.font = '12px Poppins';
+                ctx.fillText(galleryURL, 140, 150);
             }
         }
 
-        // ============ DELETE FUNCTIONS ============
+        // ============ DELETE ============
         function confirmDeletePhoto(photoId) {
-            deleteTargetId = photoId;
             document.getElementById('delete-modal-text').textContent = 'Are you sure you want to delete this photo?';
             document.getElementById('delete-modal').style.display = 'flex';
             document.getElementById('confirm-delete-btn').onclick = function () {
-                deletePhoto(photoId);
+                photos = photos.filter(function (p) { return p.id !== photoId; });
+                localStorage.setItem('solPhotos', JSON.stringify(photos));
                 closeDeleteModal();
+                showGallery();
             };
         }
 
         function confirmDeleteAll() {
             if (photos.length === 0) return;
-            document.getElementById('delete-modal-text').textContent = 'Are you sure you want to delete ALL ' + photos.length + ' photos? This cannot be undone!';
+            document.getElementById('delete-modal-text').textContent = 'Delete ALL ' + photos.length + ' photos? This cannot be undone!';
             document.getElementById('delete-modal').style.display = 'flex';
             document.getElementById('confirm-delete-btn').onclick = function () {
-                deleteAllPhotos();
+                photos = [];
+                localStorage.setItem('solPhotos', JSON.stringify(photos));
                 closeDeleteModal();
+                showGallery();
             };
         }
 
-        function deletePhoto(photoId) {
-            photos = photos.filter(function (p) { return p.id !== photoId; });
-            localStorage.setItem('solPhotos', JSON.stringify(photos));
-            showGallery();
-        }
-
-        function deleteAllPhotos() {
-            photos = [];
-            localStorage.setItem('solPhotos', JSON.stringify(photos));
-            showGallery();
-        }
-
-        function closeDeleteModal() {
-            document.getElementById('delete-modal').style.display = 'none';
-            deleteTargetId = null;
-        }
+        function closeDeleteModal() { document.getElementById('delete-modal').style.display = 'none'; }
 
         document.getElementById('delete-modal').addEventListener('click', function (e) {
             if (e.target === this) closeDeleteModal();
@@ -1756,7 +1387,6 @@
             var grid = document.getElementById('gallery-grid');
             var count = document.getElementById('gallery-count');
             var actions = document.getElementById('gallery-actions');
-
             grid.innerHTML = '';
 
             if (photos.length === 0) {
@@ -1770,34 +1400,20 @@
             count.textContent = photos.length + ' photo' + (photos.length !== 1 ? 's' : '') + ' taken 📸';
 
             var reversed = photos.slice().reverse();
-
             for (var idx = 0; idx < reversed.length; idx++) {
                 (function (photo) {
                     var item = document.createElement('div');
                     item.className = 'gallery-item';
 
-                    // Photo
                     var img = document.createElement('img');
                     img.src = photo.data;
-                    img.alt = 'Photo booth picture';
 
-                    // Buttons container
                     var btnContainer = document.createElement('div');
                     btnContainer.className = 'gallery-item-buttons';
 
-                    // Delete button
-                    var deleteBtn = document.createElement('button');
-                    deleteBtn.className = 'gallery-delete-btn';
-                    deleteBtn.textContent = '🗑️ Delete';
-                    deleteBtn.addEventListener('click', function (e) {
-                        e.stopPropagation();
-                        confirmDeletePhoto(photo.id);
-                    });
-
-                    // Download button
                     var downloadBtn = document.createElement('button');
                     downloadBtn.className = 'gallery-download-btn';
-                    downloadBtn.textContent = '💾 Save';
+                    downloadBtn.innerHTML = '💾 Save';
                     downloadBtn.addEventListener('click', function (e) {
                         e.stopPropagation();
                         var link = document.createElement('a');
@@ -1806,42 +1422,37 @@
                         link.click();
                     });
 
-                    // Timestamp
+                    var deleteBtn = document.createElement('button');
+                    deleteBtn.className = 'gallery-delete-btn';
+                    deleteBtn.innerHTML = '🗑️ Delete';
+                    deleteBtn.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        confirmDeletePhoto(photo.id);
+                    });
+
                     var timeLabel = document.createElement('div');
                     timeLabel.className = 'gallery-time';
                     timeLabel.textContent = photo.timestamp;
 
                     btnContainer.appendChild(downloadBtn);
                     btnContainer.appendChild(deleteBtn);
-
                     item.appendChild(img);
                     item.appendChild(btnContainer);
                     item.appendChild(timeLabel);
-
                     grid.appendChild(item);
                 })(reversed[idx]);
             }
         }
 
-        // ============ HANDLE URL HASH ============
-        if (window.location.hash === '#gallery') {
-            showGallery();
-        }
+        // ============ URL HASH ============
+        if (window.location.hash === '#gallery') showGallery();
 
         // ============ PREVENT SLEEP ============
-        async function preventSleep() {
-            try {
-                if ('wakeLock' in navigator) {
-                    await navigator.wakeLock.request('screen');
-                }
-            } catch (e) {
-                console.log('Wake lock not supported');
-            }
+        function preventSleep() {
+            try { if ('wakeLock' in navigator) navigator.wakeLock.request('screen'); } catch (e) { }
         }
         preventSleep();
-        document.addEventListener('visibilitychange', function () {
-            if (!document.hidden) preventSleep();
-        });
+        document.addEventListener('visibilitychange', function () { if (!document.hidden) preventSleep(); });
     </script>
 </body>
 </html>
