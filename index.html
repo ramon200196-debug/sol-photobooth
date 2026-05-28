@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Sol's Baby Shower Photo Booth 🧸</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@300;400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #3e2723, #5d4037, #4e342e);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: #fff8f0;
+        }
+
+        /* ============ WELCOME SCREEN ============ */
+        #welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 40px;
+            animation: fadeIn 1s ease;
+        }
+
+        .welcome-bears {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        .welcome-title {
+            font-family: 'Sacramento', cursive;
+            font-size: 72px;
+            color: #ffe0b2;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+
+        .welcome-subtitle {
+            font-size: 22px;
+            color: #d7ccc8;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .welcome-name {
+            font-family: 'Sacramento', cursive;
+            font-size: 96px;
+            color: #ffcc80;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.4);
+            margin-bottom: 30px;
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, #8d6e63, #a1887f);
+            color: #fff;
+            border: none;
+            padding: 20px 60px;
+            font-size: 24px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .start-btn:hover, .start-btn:active {
+            background: linear-gradient(135deg, #a1887f, #bcaaa4);
+            transform: scale(1.05);
+        }
+
+        .gallery-link {
+            margin-top: 20px;
+            color: #bcaaa4;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: underline;
+            background: none;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* ============ CAMERA SCREEN ============ */
+        #camera-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .camera-header {
+            font-family: 'Sacramento', cursive;
+            font-size: 42px;
+            color: #ffe0b2;
+            margin-bottom: 15px;
+        }
+
+        .camera-container {
+            position: relative;
+            width: 640px;
+            height: 480px;
+            max-width: 90vw;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            border: 4px solid #8d6e63;
+            background: #000;
+        }
+
+        #video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scaleX(-1);
+        }
+
+        .overlay-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .overlay-top {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Sacramento', cursive;
+            font-size: 36px;
+            color: #ffe0b2;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
+            z-index: 2;
+        }
+
+        .overlay-bottom {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 28px;
+            z-index: 2;
+        }
+
+        .overlay-corner-tl {
+            position: absolute;
+            top: 8px;
+            left: 12px;
+            font-size: 32px;
+            z-index: 2;
+        }
+
+        .overlay-corner-tr {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 32px;
+            z-index: 2;
+        }
+
+        .overlay-corner-bl {
+            position: absolute;
+            bottom: 8px;
+            left: 12px;
+            font-size: 32px;
+            z-index: 2;
+        }
+
+        .overlay-corner-br {
+            position: absolute;
+            bottom: 8px;
+            right: 12px;
+            font-size: 32px;
+            z-index: 2;
+        }
+
+        /* Countdown */
+        #countdown {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 150px;
+            font-weight: 700;
+            color: #ffe0b2;
+            text-shadow: 4px 4px 20px rgba(0,0,0,0.8);
+            z-index: 10;
+            animation: countPulse 0.5s ease;
+        }
+
+        .flash {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 15;
+            animation: flashAnim 0.4s ease forwards;
+        }
+
+        /* Capture button */
+        .capture-btn {
+            margin-top: 20px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #d7ccc8, #fff8f0);
+            border: 5px solid #8d6e63;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .capture-btn::after {
+            content: '📸';
+            font-size: 30px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .capture-btn:active {
+            transform: scale(0.9);
+        }
+
+        .switch-cam-btn {
+            margin-top: 10px;
+            background: none;
+            border: 1px solid #8d6e63;
+            color: #d7ccc8;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(141, 110, 99, 0.7);
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            z-index: 20;
+        }
+
+        /* ============ PREVIEW SCREEN ============ */
+        #preview-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .preview-header {
+            font-family: 'Sacramento', cursive;
+            font-size: 42px;
+            color: #ffe0b2;
+            margin-bottom: 15px;
+        }
+
+        .preview-container {
+            position: relative;
+            width: 640px;
+            max-width: 90vw;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            border: 4px solid #8d6e63;
+        }
+
+        #preview-canvas {
+            width: 100%;
+            display: block;
+            border-radius: 16px;
+        }
+
+        /* Filter buttons */
+        .filter-section {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .filter-section h3 {
+            color: #d7ccc8;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            background: rgba(141, 110, 99, 0.5);
+            border: 2px solid #8d6e63;
+            color: #ffe0b2;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn.active {
+            background: #8d6e63;
+            border-color: #ffe0b2;
+        }
+
+        /* Overlay toggle */
+        .overlay-section {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .overlay-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .overlay-btn {
+            background: rgba(141, 110, 99, 0.5);
+            border: 2px solid #8d6e63;
+            color: #ffe0b2;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .overlay-btn.active {
+            background: #8d6e63;
+            border-color: #ffe0b2;
+        }
+
+        /* Action buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #8d6e63, #a1887f);
+            color: #fff;
+            border: none;
+            padding: 15px 35px;
+            font-size: 18px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:active {
+            transform: scale(0.95);
+        }
+
+        .action-btn.retake {
+            background: linear-gradient(135deg, #5d4037, #6d4c41);
+        }
+
+        /* ============ QR SCREEN ============ */
+        #qr-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .qr-header {
+            font-family: 'Sacramento', cursive;
+            font-size: 48px;
+            color: #ffe0b2;
+            margin-bottom: 10px;
+        }
+
+        .qr-subtitle {
+            color: #d7ccc8;
+            font-size: 18px;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        #qr-canvas {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            border: 4px solid #8d6e63;
+        }
+
+        .qr-instruction {
+            margin-top: 20px;
+            color: #bcaaa4;
+            font-size: 16px;
+        }
+
+        .qr-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        /* ============ GALLERY SCREEN ============ */
+        #gallery-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .gallery-header {
+            font-family: 'Sacramento', cursive;
+            font-size: 52px;
+            color: #ffe0b2;
+            margin-bottom: 5px;
+        }
+
+        .gallery-count {
+            color: #bcaaa4;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            border: 3px solid #8d6e63;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .gallery-item:active {
+            transform: scale(0.97);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            display: block;
+        }
+
+        .gallery-empty {
+            color: #bcaaa4;
+            font-size: 20px;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        /* ============ HIDDEN CANVAS ============ */
+        #hidden-canvas {
+            display: none;
+        }
+
+        /* ============ ANIMATIONS ============ */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes countPulse {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        @keyframes flashAnim {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* ============ SCROLLBAR ============ */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #3e2723;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8d6e63;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============ WELCOME SCREEN ============ -->
+    <div id="welcome-screen">
+        <div class="welcome-bears">🧸</div>
+        <div class="welcome-title">Welcome to</div>
+        <div class="welcome-name">Sol's</div>
+        <div class="welcome-subtitle">Baby Shower Photo Booth</div>
+        <br>
+        <button class="start-btn" onclick="startCamera()">📸 Start Photo Booth</button>
+        <button class="gallery-link" onclick="showGallery()">View Gallery 🖼️</button>
+    </div>
+
+    <!-- ============ CAMERA SCREEN ============ -->
+    <div id="camera-screen">
+        <button class="back-btn" onclick="goHome()">← Back</button>
+        <div class="camera-header">Say Cheese! 🧸</div>
+        <div class="camera-container">
+            <video id="video" autoplay playsinline></video>
+            <div class="overlay-frame">
+                <div class="overlay-top">Welcome Sol 🧸</div>
+                <div class="overlay-corner-tl">🧸</div>
+                <div class="overlay-corner-tr">🧸</div>
+                <div class="overlay-corner-bl">🤎</div>
+                <div class="overlay-corner-br">🤎</div>
+                <div class="overlay-bottom">🧸🤎🧸</div>
+            </div>
+            <div id="countdown"></div>
+        </div>
+        <button class="capture-btn" id="capture-btn" onclick="startCountdown()"></button>
+        <button class="switch-cam-btn" onclick="switchCamera()">🔄 Switch Camera</button>
+    </div>
+
+    <!-- ============ PREVIEW SCREEN ============ -->
+    <div id="preview-screen">
+        <button class="back-btn" onclick="goToCamera()">← Back</button>
+        <div class="preview-header">Looking Good! ✨</div>
+        <div class="preview-container">
+            <canvas id="preview-canvas"></canvas>
+        </div>
+
+        <div class="filter-section">
+            <h3>Choose a Filter 🎨</h3>
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="applyFilter('none')">None</button>
+                <button class="filter-btn" onclick="applyFilter('vintage')">Vintage</button>
+                <button class="filter-btn" onclick="applyFilter('bw')">B&W</button>
+                <button class="filter-btn" onclick="applyFilter('sepia')">Sepia</button>
+                <button class="filter-btn" onclick="applyFilter('warm')">Warm</button>
+                <button class="filter-btn" onclick="applyFilter('bright')">Bright</button>
+            </div>
+        </div>
+
+        <div class="overlay-section">
+            <h3>Choose an Overlay 🖼️</h3>
+            <div class="overlay-buttons">
+                <button class="overlay-btn active" onclick="setOverlay('classic')">🧸 Classic</button>
+                <button class="overlay-btn" onclick="setOverlay('hearts')">🤎 Hearts</button>
+                <button class="overlay-btn" onclick="setOverlay('stars')">⭐ Stars</button>
+                <button class="overlay-btn" onclick="setOverlay('minimal')">✨ Minimal</button>
+                <button class="overlay-btn" onclick="setOverlay('none')">None</button>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="action-btn retake" onclick="goToCamera()">🔄 Retake</button>
+            <button class="action-btn" onclick="saveAndShowQR()">✅ Save & Get QR</button>
+        </div>
+    </div>
+
+    <!-- ============ QR SCREEN ============ -->
+    <div id="qr-screen">
+        <div class="qr-header">Scan to Save! 📱</div>
+        <div class="qr-subtitle">Point your phone camera at the QR code</div>
+        <canvas id="qr-canvas"></canvas>
+        <div class="qr-instruction">Your photo will open on your phone 🧸</div>
+        <div class="qr-buttons">
+            <button class="action-btn retake" onclick="goToCamera()">📸 Take Another</button>
+            <button class="action-btn" onclick="goHome()">🏠 Home</button>
+        </div>
+    </div>
+
+    <!-- ============ GALLERY SCREEN ============ -->
+    <div id="gallery-screen">
+        <button class="back-btn" onclick="goHome()">← Back</button>
+        <div class="gallery-header">Sol's Photo Gallery 🧸</div>
+        <div class="gallery-count" id="gallery-count"></div>
+        <div class="gallery-grid" id="gallery-grid"></div>
+    </div>
+
+    <!-- Hidden canvas for processing -->
+    <canvas id="hidden-canvas"></canvas>
+
+    <!-- QR Code Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+
+    <script>
+        // ============ STATE ============
+        let stream = null;
+        let currentFilter = 'none';
+        let currentOverlay = 'classic';
+        let rawImageData = null;
+        let facingMode = 'user';
+        let photos = JSON.parse(localStorage.getItem('solPhotos') || '[]');
+
+        // ============ NAVIGATION ============
+        function showScreen(screenId) {
+            document.querySelectorAll('#welcome-screen, #camera-screen, #preview-screen, #qr-screen, #gallery-screen')
+                .forEach(el => el.style.display = 'none');
+            document.getElementById(screenId).style.display = 'flex';
+        }
+
+        function goHome() {
+            stopCamera();
+            showScreen('welcome-screen');
+        }
+
+        function goToCamera() {
+            showScreen('camera-screen');
+            startCamera();
+        }
+
+        // ============ CAMERA ============
+        async function startCamera() {
+            showScreen('camera-screen');
+            try {
+                if (stream) {
+                    stream.getTracks().forEach(t => t.stop());
+                }
+                stream = await navigator.mediaDevices.getUserMedia({
+                    video: {
+                        facingMode: facingMode,
+                        width: { ideal: 1280 },
+                        height: { ideal: 960 }
+                    },
+                    audio: false
+                });
+                document.getElementById('video').srcObject = stream;
+            } catch (err) {
+                alert('Could not access camera. Please allow camera permissions and try again!');
+                console.error(err);
+            }
+        }
+
+        function stopCamera() {
+            if (stream) {
+                stream.getTracks().forEach(t => t.stop());
+                stream = null;
+            }
+        }
+
+        async function switchCamera() {
+            facingMode = facingMode === 'user' ? 'environment' : 'user';
+            await startCamera();
+        }
+
+        // ============ COUNTDOWN ============
+        function startCountdown() {
+            const btn = document.getElementById('capture-btn');
+            btn.disabled = true;
+            btn.style.opacity = '0.5';
+
+            const countdownEl = document.getElementById('countdown');
+            let count = 3;
+
+            countdownEl.style.display = 'block';
+            countdownEl.textContent = count;
+            countdownEl.style.animation = 'none';
+            void countdownEl.offsetWidth;
+            countdownEl.style.animation = 'countPulse 0.5s ease';
+
+            const interval = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    countdownEl.textContent = count;
+                    countdownEl.style.animation = 'none';
+                    void countdownEl.offsetWidth;
+                    countdownEl.style.animation = 'countPulse 0.5s ease';
+                } else if (count === 0) {
+                    countdownEl.textContent = '📸';
+                    countdownEl.style.animation = 'none';
+                    void countdownEl.offsetWidth;
+                    countdownEl.style.animation = 'countPulse 0.5s ease';
+                } else {
+                    clearInterval(interval);
+                    countdownEl.style.display = 'none';
+                    capturePhoto();
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                }
+            }, 1000);
+        }
+
+        // ============ CAPTURE ============
+        function capturePhoto() {
+            // Flash effect
+            const container = document.querySelector('.camera-container');
+            const flash = document.createElement('div');
+            flash.className = 'flash';
+            container.appendChild(flash);
+            setTimeout(() => flash.remove(), 500);
+
+            const video = document.getElementById('video');
+            const canvas = document.getElementById('hidden-canvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+
+            // Mirror the image (front camera)
+            ctx.translate(canvas.width, 0);
+            ctx.scale(-1, 1);
+            ctx.drawImage(video, 0, 0);
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+            rawImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+            currentFilter = 'none';
+            currentOverlay = 'classic';
+            renderPreview();
+            showScreen('preview-screen');
+
+            // Reset active buttons
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('.filter-btn').classList.add('active');
+            document.querySelectorAll('.overlay-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('.overlay-btn').classList.add('active');
+        }
+
+        // ============ FILTERS ============
+        function applyFilter(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            renderPreview();
+        }
+
+        function processFilter(imageData, filter) {
+            const data = imageData.data;
+            for (let i = 0; i < data.length; i += 4) {
+                let r = data[i], g = data[i + 1], b = data[i + 2];
+
+                switch (filter) {
+                    case 'vintage':
+                        data[i] = Math.min(255, r * 1.1 + 20);
+                        data[i + 1] = Math.min(255, g * 0.9 + 10);
+                        data[i + 2] = Math.min(255, b * 0.7);
+                        break;
+                    case 'bw':
+                        const gray = r * 0.299 + g * 0.587 + b * 0.114;
+                        data[i] = data[i + 1] = data[i + 2] = gray;
+                        break;
+                    case 'sepia':
+                        data[i] = Math.min(255, r * 0.393 + g * 0.769 + b * 0.189);
+                        data[i + 1] = Math.min(255, r * 0.349 + g * 0.686 + b * 0.168);
+                        data[i + 2] = Math.min(255, r * 0.272 + g * 0.534 + b * 0.131);
+                        break;
+                    case 'warm':
+                        data[i] = Math.min(255, r * 1.15);
+                        data[i + 1] = Math.min(255, g * 1.05);
+                        data[i + 2] = Math.min(255, b * 0.85);
+                        break;
+                    case 'bright':
+                        data[i] = Math.min(255, r * 1.2 + 15);
+                        data[i + 1] = Math.min(255, g * 1.2 + 15);
+                        data[i + 2] = Math.min(255, b * 1.2 + 15);
+                        break;
+                }
+            }
+            return imageData;
+        }
+
+        // ============ OVERLAYS ============
+        function setOverlay(overlay) {
+            currentOverlay = overlay;
+            document.querySelectorAll('.overlay-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            renderPreview();
+        }
+
+        function drawOverlay(ctx, w, h) {
+            const scale = w / 640;
+
+            switch (currentOverlay) {
+                case 'classic':
+                    // Top text
+                    ctx.font = `${36 * scale}px Sacramento`;
+                    ctx.fillStyle = '#ffe0b2';
+                    ctx.shadowColor = 'rgba(0,0,0,0.8)';
+                    ctx.shadowBlur = 6 * scale;
+                    ctx.textAlign = 'center';
+                    ctx.fillText('Welcome Sol 🧸', w / 2, 40 * scale);
+
+                    // Corner bears
+                    ctx.font = `${32 * scale}px serif`;
+                    ctx.fillText('🧸', 25 * scale, 38 * scale);
+                    ctx.fillText('🧸', w - 25 * scale, 38 * scale);
+                    ctx.fillText('🤎', 25 * scale, h - 12 * scale);
+                    ctx.fillText('🤎', w - 25 * scale, h - 12 * scale);
+
+                    // Bottom
+                    ctx.font = `${28 * scale}px serif`;
+                    ctx.fillText('🧸🤎🧸', w / 2, h - 12 * scale);
+
+                    // Border
+                    ctx.shadowBlur = 0;
+                    ctx.strokeStyle = 'rgba(255, 224, 178, 0.4)';
+                    ctx.lineWidth = 3 * scale;
+                    ctx.strokeRect(8 * scale, 8 * scale, w - 16 * scale, h - 16 * scale);
+                    break;
+
+                case 'hearts':
+                    ctx.font = `${36 * scale}px Sacramento`;
+                    ctx.fillStyle = '#ffe0b2';
+                    ctx.shadowColor = 'rgba(0,0,0,0.8)';
+                    ctx.shadowBlur = 6 * scale;
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Sol's Baby Shower", w / 2, 40 * scale);
+
+                    ctx.font = `${28 * scale}px serif`;
+                    ctx.fillText('🤎', 25 * scale, 38 * scale);
+                    ctx.fillText('🤎', w - 25 * scale, 38 * scale);
+                    ctx.fillText('🤎', 25 * scale, h - 12 * scale);
+                    ctx.fillText('🤎', w - 25 * scale, h - 12 * scale);
+                    ctx.fillText('🤎🧸🤎🧸🤎', w / 2, h - 12 * scale);
+                    ctx.shadowBlur = 0;
+                    break;
+
+                case 'stars':
+                    ctx.font = `${36 * scale}px Sacramento`;
+                    ctx.fillStyle = '#ffe0b2';
+                    ctx.shadowColor = 'rgba(0,0,0,0.8)';
+                    ctx.shadowBlur = 6 * scale;
+                    ctx.textAlign = 'center';
+                    ctx.fillText('Little Star Sol ⭐', w / 2, 40 * scale);
+
+                    ctx.font = `${28 * scale}px serif`;
+                    ctx.fillText('⭐', 25 * scale, 38 * scale);
+                    ctx.fillText('⭐', w - 25 * scale, 38 * scale);
+                    ctx.fillText('✨', 25 * scale, h - 12 * scale);
+                    ctx.fillText('✨', w - 25 * scale, h - 12 * scale);
+                    ctx.fillText('⭐✨⭐', w / 2, h - 12 * scale);
+                    ctx.shadowBlur = 0;
+                    break;
+
+                case 'minimal':
+                    ctx.font = `${30 * scale}px Sacramento`;
+                    ctx.fillStyle = 'rgba(255, 224, 178, 0.8)';
+                    ctx.shadowColor = 'rgba(0,0,0,0.6)';
+                    ctx.shadowBlur = 4 * scale;
+                    ctx.textAlign = 'right';
+                    ctx.fillText('Sol 🧸', w - 20 * scale, h - 15 * scale);
+                    ctx.shadowBlur = 0;
+                    break;
+
+                case 'none':
+                    break;
+            }
+        }
+
+        // ============ RENDER PREVIEW ============
+        function renderPreview() {
+            const canvas = document.getElementById('preview-canvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = rawImageData.width;
+            canvas.height = rawImageData.height;
+
+            // Clone raw image data
+            const filtered = new ImageData(
+                new Uint8ClampedArray(rawImageData.data),
+                rawImageData.width,
+                rawImageData.height
+            );
+
+            // Apply filter
+            if (currentFilter !== 'none') {
+                processFilter(filtered, currentFilter);
+            }
+
+            ctx.putImageData(filtered, 0, 0);
+
+            // Draw overlay
+            drawOverlay(ctx, canvas.width, canvas.height);
+        }
+
+        // ============ SAVE & QR ============
+        function saveAndShowQR() {
+            const canvas = document.getElementById('preview-canvas');
+            const dataURL = canvas.toDataURL('image/jpeg', 0.85);
+
+            // Save to localStorage gallery
+            const photoEntry = {
+                id: Date.now(),
+                data: dataURL,
+                timestamp: new Date().toLocaleString()
+            };
+            photos.push(photoEntry);
+
+            // Keep only last 50 photos to avoid storage limits
+            if (photos.length > 50) {
+                photos = photos.slice(-50);
+            }
+
+            try {
+                localStorage.setItem('solPhotos', JSON.stringify(photos));
+            } catch (e) {
+                console.warn('Storage full, removing old photos');
+                photos = photos.slice(-20);
+                localStorage.setItem('solPhotos', JSON.stringify(photos));
+            }
+
+            // Generate QR code with data URL
+            // Since data URLs are too long for QR, we'll create a downloadable blob
+            showScreen('qr-screen');
+            generateQR(dataURL);
+        }
+
+        function generateQR(dataURL) {
+            // Create a blob URL for the image
+            const byteString = atob(dataURL.split(',')[1]);
+            const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+            const ab = new ArrayBuffer(byteString.length);
+            const ia = new Uint8Array(ab);
+            for (let i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            const blob = new Blob([ab], { type: mimeString });
+
+            // For QR we need a short URL - we'll use a direct download approach
+            // Since we're on GitHub Pages, we'll show the photo and offer direct download
+            const qrCanvas = document.getElementById('qr-canvas');
+
+            // We'll encode a small page URL or use the gallery approach
+            // Best approach: show QR that links to the hosted page gallery
+            const currentURL = window.location.href.split('#')[0] + '#gallery';
+
+            QRCode.toCanvas(qrCanvas, currentURL, {
+                width: 250,
+                margin: 2,
+                color: {
+                    dark: '#3e2723',
+                    light: '#fff8f0'
+                }
+            }, function (error) {
+                if (error) {
+                    console.error(error);
+                    // Fallback: offer direct download
+                    const link = document.createElement('a');
+                    link.download = `sol-photobooth-${Date.now()}.jpg`;
+                    link.href = dataURL;
+                    link.click();
+                }
+            });
+        }
+
+        // ============ GALLERY ============
+        function showGallery() {
+            showScreen('gallery-screen');
+            const grid = document.getElementById('gallery-grid');
+            const count = document.getElementById('gallery-count');
+
+            grid.innerHTML = '';
+
+            if (photos.length === 0) {
+                grid.innerHTML = '<div class="gallery-empty">No photos yet! 📸<br>Go take some!</div>';
+                count.textContent = '';
+                return;
+            }
+
+            count.textContent = `${photos.length} photo${photos.length !== 1 ? 's' : ''} taken 📸`;
+
+            // Show newest first
+            [...photos].reverse().forEach(photo => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                const img = document.createElement('img');
+                img.src = photo.data;
+                img.alt = 'Photo booth picture';
+                item.appendChild(img);
+
+                // Tap to download
+                item.addEventListener('click', () => {
+                    const link = document.createElement('a');
+                    link.download = `sol-photobooth-${photo.id}.jpg`;
+                    link.href = photo.data;
+                    link.click();
+                });
+
+                grid.appendChild(item);
+            });
+        }
+
+        // ============ HANDLE URL HASH ============
+        if (window.location.hash === '#gallery') {
+            showGallery();
+        }
+
+        // ============ PREVENT SLEEP ON IPAD ============
+        async function preventSleep() {
+            try {
+                if ('wakeLock' in navigator) {
+                    await navigator.wakeLock.request('screen');
+                }
+            } catch (e) {
+                console.log('Wake lock not supported');
+            }
+        }
+        preventSleep();
+
+        // ============ HANDLE VISIBILITY CHANGE ============
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                preventSleep();
+            }
+        });
+    </script>
+</body>
+</html>
