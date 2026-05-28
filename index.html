@@ -35,6 +35,75 @@
             opacity: 1;
         }
 
+        /* ============ DELETE CONFIRM MODAL ============ */
+        #delete-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.7);
+            z-index: 9998;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-box {
+            background: linear-gradient(135deg, #4e342e, #5d4037);
+            border: 3px solid #8d6e63;
+            border-radius: 25px;
+            padding: 35px 40px;
+            text-align: center;
+            max-width: 400px;
+            width: 85%;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+        }
+
+        .modal-box h2 {
+            font-family: 'Sacramento', cursive;
+            font-size: 36px;
+            color: #ffe0b2;
+            margin-bottom: 10px;
+        }
+
+        .modal-box p {
+            color: #d7ccc8;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .modal-btn.cancel {
+            background: #6d4c41;
+            color: #d7ccc8;
+        }
+
+        .modal-btn.confirm-delete {
+            background: #c62828;
+            color: #fff;
+        }
+
+        .modal-btn:active {
+            transform: scale(0.95);
+        }
+
         /* ============ WELCOME SCREEN ============ */
         #welcome-screen {
             display: flex;
@@ -449,10 +518,17 @@
             font-weight: 300;
         }
 
-        #qr-canvas {
+        #qr-container {
+            background: #fff8f0;
+            padding: 20px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
             border: 4px solid #8d6e63;
+            display: inline-block;
+        }
+
+        #qr-container img {
+            display: block;
         }
 
         .qr-instruction {
@@ -465,6 +541,8 @@
             display: flex;
             gap: 15px;
             margin-top: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         /* ============ GALLERY SCREEN ============ */
@@ -485,8 +563,36 @@
 
         .gallery-count {
             color: #bcaaa4;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             font-weight: 300;
+        }
+
+        .gallery-actions {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .gallery-action-btn {
+            background: rgba(141, 110, 99, 0.5);
+            border: 2px solid #8d6e63;
+            color: #ffe0b2;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .gallery-action-btn.danger {
+            border-color: #c62828;
+            color: #ef9a9a;
+        }
+
+        .gallery-action-btn.danger:active {
+            background: #c62828;
+            color: #fff;
         }
 
         .gallery-grid {
@@ -498,21 +604,77 @@
         }
 
         .gallery-item {
+            position: relative;
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 5px 20px rgba(0,0,0,0.3);
             border: 3px solid #8d6e63;
-            cursor: pointer;
             transition: transform 0.2s ease;
-        }
-
-        .gallery-item:active {
-            transform: scale(0.97);
         }
 
         .gallery-item img {
             width: 100%;
             display: block;
+            cursor: pointer;
+        }
+
+        .gallery-item .delete-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(198, 40, 40, 0.85);
+            border: 2px solid #ef9a9a;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            z-index: 5;
+        }
+
+        .gallery-item .delete-btn:active {
+            transform: scale(0.9);
+            background: #b71c1c;
+        }
+
+        .gallery-item .download-btn {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(141, 110, 99, 0.85);
+            border: 2px solid #ffe0b2;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            z-index: 5;
+        }
+
+        .gallery-item .download-btn:active {
+            transform: scale(0.9);
+        }
+
+        .gallery-item .photo-time {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            background: rgba(62, 39, 35, 0.75);
+            color: #d7ccc8;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            z-index: 5;
         }
 
         .gallery-empty {
@@ -573,6 +735,18 @@
 
     <!-- ============ FULL SCREEN FLASH ============ -->
     <div id="full-flash"></div>
+
+    <!-- ============ DELETE CONFIRM MODAL ============ -->
+    <div id="delete-modal">
+        <div class="modal-box">
+            <h2>Delete Photo?</h2>
+            <p id="delete-modal-text">Are you sure you want to delete this photo?</p>
+            <div class="modal-buttons">
+                <button class="modal-btn cancel" onclick="closeDeleteModal()">Cancel</button>
+                <button class="modal-btn confirm-delete" id="confirm-delete-btn">🗑️ Delete</button>
+            </div>
+        </div>
+    </div>
 
     <!-- ============ WELCOME SCREEN ============ -->
     <div id="welcome-screen">
@@ -646,10 +820,11 @@
     <div id="qr-screen">
         <div class="qr-header">Scan to Save! 📱</div>
         <div class="qr-subtitle">Point your phone camera at the QR code</div>
-        <canvas id="qr-canvas"></canvas>
-        <div class="qr-instruction">Your photo will open on your phone 🧸</div>
+        <div id="qr-container"></div>
+        <div class="qr-instruction">Scan → Opens gallery → Tap photo to download 🧸</div>
         <div class="qr-buttons">
             <button class="action-btn retake" onclick="goToCamera()">📸 Take Another</button>
+            <button class="action-btn" onclick="showGallery()">🖼️ Gallery</button>
             <button class="action-btn" onclick="goHome()">🏠 Home</button>
         </div>
     </div>
@@ -659,14 +834,17 @@
         <button class="back-btn" onclick="goHome()">← Back</button>
         <div class="gallery-header">Sol's Photo Gallery 🧸</div>
         <div class="gallery-count" id="gallery-count"></div>
+        <div class="gallery-actions" id="gallery-actions">
+            <button class="gallery-action-btn danger" onclick="confirmDeleteAll()">🗑️ Delete All</button>
+        </div>
         <div class="gallery-grid" id="gallery-grid"></div>
     </div>
 
     <!-- Hidden canvas for processing -->
     <canvas id="hidden-canvas"></canvas>
 
-    <!-- QR Code Library -->
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <!-- QR Code Library - using qrcode-generator which is more reliable -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
 
     <script>
         // ============ STATE ============
@@ -676,7 +854,8 @@
         let rawImageData = null;
         let facingMode = 'user';
         let photos = JSON.parse(localStorage.getItem('solPhotos') || '[]');
-        const ZOOM_LEVEL = 1.3; // Front camera zoom (adjust 1.0 = no zoom, 1.5 = more zoom)
+        let deleteTargetId = null;
+        const ZOOM_LEVEL = 1.3;
 
         // ============ NAVIGATION ============
         function showScreen(screenId) {
@@ -714,7 +893,6 @@
                 });
                 video.srcObject = stream;
 
-                // Set zoom class based on camera
                 if (facingMode === 'user') {
                     video.classList.remove('back-camera');
                 } else {
@@ -744,10 +922,9 @@
             const flash = document.getElementById('full-flash');
             flash.style.display = 'block';
             flash.style.animation = 'none';
-            void flash.offsetWidth; // Force reflow
+            void flash.offsetWidth;
             flash.style.animation = 'fullFlashAnim 0.8s ease forwards';
 
-            // Also add flash inside camera container
             const container = document.querySelector('.camera-container');
             const camFlash = document.createElement('div');
             camFlash.className = 'camera-flash';
@@ -789,11 +966,7 @@
                 } else {
                     clearInterval(interval);
                     countdownEl.style.display = 'none';
-
-                    // Trigger flash RIGHT before capture
                     triggerFlash();
-
-                    // Small delay so flash illuminates the subject
                     setTimeout(() => {
                         capturePhoto();
                         btn.disabled = false;
@@ -812,7 +985,6 @@
             const isFront = facingMode === 'user';
             const zoom = isFront ? ZOOM_LEVEL : 1;
 
-            // Calculate cropped area for zoom
             const sourceWidth = video.videoWidth / zoom;
             const sourceHeight = video.videoHeight / zoom;
             const sourceX = (video.videoWidth - sourceWidth) / 2;
@@ -822,15 +994,14 @@
             canvas.height = video.videoHeight;
 
             if (isFront) {
-                // Mirror + zoom for front camera
                 ctx.translate(canvas.width, 0);
                 ctx.scale(-1, 1);
             }
 
             ctx.drawImage(
                 video,
-                sourceX, sourceY, sourceWidth, sourceHeight,  // Source (cropped/zoomed)
-                0, 0, canvas.width, canvas.height               // Destination (full canvas)
+                sourceX, sourceY, sourceWidth, sourceHeight,
+                0, 0, canvas.width, canvas.height
             );
 
             ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -842,7 +1013,6 @@
             renderPreview();
             showScreen('preview-screen');
 
-            // Reset active buttons
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             document.querySelector('.filter-btn').classList.add('active');
             document.querySelectorAll('.overlay-btn').forEach(b => b.classList.remove('active'));
@@ -1023,69 +1193,143 @@
             }
 
             showScreen('qr-screen');
-            generateQR(dataURL);
+            generateQR();
         }
 
-        function generateQR(dataURL) {
-            const byteString = atob(dataURL.split(',')[1]);
-            const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
-            const ab = new ArrayBuffer(byteString.length);
-            const ia = new Uint8Array(ab);
-            for (let i = 0; i < byteString.length; i++) {
-                ia[i] = byteString.charCodeAt(i);
+        function generateQR() {
+            const container = document.getElementById('qr-container');
+            container.innerHTML = '';
+
+            const galleryURL = window.location.href.split('#')[0] + '#gallery';
+
+            try {
+                // Using qrcode-generator library
+                const qr = qrcode(0, 'M');
+                qr.addData(galleryURL);
+                qr.make();
+
+                container.innerHTML = qr.createImgTag(6, 10);
+            } catch (e) {
+                console.error('QR generation failed:', e);
+                // Fallback: show the URL as text
+                container.innerHTML = `
+                    <div style="padding: 20px; color: #3e2723; font-size: 14px; word-break: break-all;">
+                        <p style="margin-bottom: 10px; font-weight: 600;">Share this link:</p>
+                        <p style="background: #efe0d5; padding: 10px; border-radius: 8px;">${galleryURL}</p>
+                    </div>
+                `;
             }
-
-            const qrCanvas = document.getElementById('qr-canvas');
-            const currentURL = window.location.href.split('#')[0] + '#gallery';
-
-            QRCode.toCanvas(qrCanvas, currentURL, {
-                width: 250,
-                margin: 2,
-                color: {
-                    dark: '#3e2723',
-                    light: '#fff8f0'
-                }
-            }, function (error) {
-                if (error) {
-                    console.error(error);
-                    const link = document.createElement('a');
-                    link.download = `sol-photobooth-${Date.now()}.jpg`;
-                    link.href = dataURL;
-                    link.click();
-                }
-            });
         }
+
+        // ============ DELETE FUNCTIONS ============
+        function confirmDeletePhoto(photoId) {
+            deleteTargetId = photoId;
+            document.getElementById('delete-modal-text').textContent = 'Are you sure you want to delete this photo?';
+            document.getElementById('delete-modal').style.display = 'flex';
+
+            document.getElementById('confirm-delete-btn').onclick = function() {
+                deletePhoto(photoId);
+                closeDeleteModal();
+            };
+        }
+
+        function confirmDeleteAll() {
+            if (photos.length === 0) return;
+
+            deleteTargetId = 'all';
+            document.getElementById('delete-modal-text').textContent = `Are you sure you want to delete ALL ${photos.length} photos? This cannot be undone!`;
+            document.getElementById('delete-modal').style.display = 'flex';
+
+            document.getElementById('confirm-delete-btn').onclick = function() {
+                deleteAllPhotos();
+                closeDeleteModal();
+            };
+        }
+
+        function deletePhoto(photoId) {
+            photos = photos.filter(p => p.id !== photoId);
+            localStorage.setItem('solPhotos', JSON.stringify(photos));
+            showGallery(); // Refresh gallery
+        }
+
+        function deleteAllPhotos() {
+            photos = [];
+            localStorage.setItem('solPhotos', JSON.stringify(photos));
+            showGallery(); // Refresh gallery
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('delete-modal').style.display = 'none';
+            deleteTargetId = null;
+        }
+
+        // Close modal when tapping outside
+        document.getElementById('delete-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeDeleteModal();
+            }
+        });
 
         // ============ GALLERY ============
         function showGallery() {
             showScreen('gallery-screen');
             const grid = document.getElementById('gallery-grid');
             const count = document.getElementById('gallery-count');
+            const actions = document.getElementById('gallery-actions');
 
             grid.innerHTML = '';
 
             if (photos.length === 0) {
                 grid.innerHTML = '<div class="gallery-empty">No photos yet! 📸<br>Go take some!</div>';
                 count.textContent = '';
+                actions.style.display = 'none';
                 return;
             }
 
+            actions.style.display = 'flex';
             count.textContent = `${photos.length} photo${photos.length !== 1 ? 's' : ''} taken 📸`;
 
             [...photos].reverse().forEach(photo => {
                 const item = document.createElement('div');
                 item.className = 'gallery-item';
+
+                // Photo image
                 const img = document.createElement('img');
                 img.src = photo.data;
                 img.alt = 'Photo booth picture';
-                item.appendChild(img);
 
-                item.addEventListener('click', () => {
+                // Download button
+                const downloadBtn = document.createElement('button');
+                downloadBtn.className = 'download-btn';
+                downloadBtn.innerHTML = '💾';
+                downloadBtn.title = 'Download';
+                downloadBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
                     const link = document.createElement('a');
                     link.download = `sol-photobooth-${photo.id}.jpg`;
                     link.href = photo.data;
                     link.click();
                 });
+
+                // Delete button
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.innerHTML = '✕';
+                deleteBtn.title = 'Delete';
+                deleteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    confirmDeletePhoto(photo.id);
+                });
+
+                // Timestamp
+                const timeLabel = document.createElement('div');
+                timeLabel.className = 'photo-time';
+                timeLabel.textContent = photo.timestamp;
+
+                item.appendChild(img);
+                item.appendChild(deleteBtn);
+                item.appendChild(downloadBtn);
+                item.appendChild(timeLabel);
 
                 grid.appendChild(item);
             });
